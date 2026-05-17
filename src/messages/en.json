@@ -1,0 +1,62 @@
+{
+    "navigation": {
+        "home": "Home",
+        "about": "About Us",
+        "services": "Services",
+        "contact": "Contact Us",
+        "login": "Login",
+        "signup": "Sign ip"
+    },
+    "hero": {
+        "title": "Al-Rawaq Real Estate - Your permanent partner in all real estate services.",
+        "cta": "Talk to Us"
+    },
+    "stats": {
+        "badge": "Our Achievements",
+        "title": "Al-Rawaq Company,",
+        "subtitle": "Years of Experience...",
+        "consultations": "Monthly real estate consultations and services",
+        "rating": "Average client ratings",
+        "clients": "Satisfied clients",
+        "growth": "Investment growth"
+    },
+    "services": {
+        "badge": "Our Services",
+        "title": "Professional Services",
+        "subtitle": "From experts and specialists.",
+        "service_title": "Real Estate Buying and Selling",
+        "service_description": "Comprehensive real estate buying and selling services with guaranteed best prices and distinguished services"
+    },
+    "consultants": {
+        "badge": "Consultants Team",
+        "title": "Book a consultation with one of",
+        "subtitle": "our specialized consultants",
+        "all_consultants": "All Consultants",
+        "consultant1_name": "Karim Abdullah",
+        "consultant1_role": "Real Estate & Investment Consultant",
+        "consultant2_name": "Maysam Khalid",
+        "consultant2_role": "Sales Manager",
+        "consultant3_name": "Ahmed Amin",
+        "consultant3_role": "Real Estate Consultant"
+    },
+    "blog": {
+        "badge": "Blog",
+        "title": "Latest Topics",
+        "article1": "More than 5 reasons to invest in real estate in 2025",
+        "article2": "How to choose the right location for your investment property",
+        "article3": "New investor guide: Simple steps for a successful start",
+        "article4": "Simple tips to renovate your home on a limited budget"
+    },
+    "cta": {
+        "badge": "More than 15 years",
+        "title": "The best real estate services at",
+        "subtitle": "your fingertips, don't hesitate and let us help you!",
+        "description": "Through our experience in real estate consulting, we provide you with the best practical solutions that help you make a successful investment decision in the real estate field",
+        "call_now": "Call us now"
+    },
+    "common": {
+        "loading": "Loading...",
+        "phone": "+967 55 66 322",
+        "company_name": "Al-Rawaq"
+    }
+}
