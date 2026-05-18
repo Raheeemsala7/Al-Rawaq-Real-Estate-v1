@@ -1,11 +1,11 @@
 declare type SuccessResponse<T> = {
-    status: true
+    success: true
     code: number;
     message?: string
-    payload: T
+    data: T
 }
 declare type IErrorResponse = {
-    status: false
+    success: false
     code: number;
     message?: string;
     errors?: Array<{
@@ -21,8 +21,8 @@ declare interface IPagination<T> {
     metadata: {
         page: number;
         limit: number;
-        total: number;
         totalPages: number;
+        [key: string]: number;
     };
 }
 
@@ -32,5 +32,5 @@ export interface ITimeStamp {
 }
 
 export interface IResponseMessage {
-    message:string
+    message: string
 }

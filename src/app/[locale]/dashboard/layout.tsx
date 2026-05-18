@@ -1,8 +1,11 @@
+import { AppSidebar } from '@/shared/components/sidebar/app-sidebar'
+import { SiteHeader } from '@/shared/components/sidebar/site-header'
+import { SidebarInset, SidebarProvider } from '@/shared/components/ui/sidebar'
 import React from 'react'
 
-const AdminLayout = () => {
-  return (
-       <SidebarProvider>
+const AdminLayout = ({ children }: { children: React.ReactNode }) => {
+    return (
+        <SidebarProvider>
             <AppSidebar />
             <SidebarInset>
                 <SiteHeader />
@@ -15,7 +18,7 @@ const AdminLayout = () => {
                 </div>
             </SidebarInset>
         </SidebarProvider>
-  )
+    )
 }
 
 export default AdminLayout
