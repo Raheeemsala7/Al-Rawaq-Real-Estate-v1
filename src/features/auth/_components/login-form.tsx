@@ -10,8 +10,10 @@ import { cn } from "@/shared/lib/utils"
 import { SignInFormType, signInSchema } from "../schema/auth-schema"
 import { signIn } from "next-auth/react"
 import { toast } from "sonner"
+import { useTransition } from "react"
 
 export function LoginForm() {
+    const [isPending, startTransition] = useTransition()
     const form = useForm<SignInFormType>({
         resolver: zodResolver(signInSchema),
         defaultValues: {
@@ -19,22 +21,23 @@ export function LoginForm() {
             password: ""
         },
     })
-    const isPending = false
 
 
     const onSubmit = async (data: SignInFormType) => {
         const { email, password } = data
-        const res = await signIn("credentials", {
-            email,
-            password,
-            redirect: false
+        startTransition(async () => {
+            const res = await signIn("credentials", {
+                email,
+                password,
+                redirect: false
+            })
+            if (!res?.ok) {
+                toast.error(res?.error || "Login failed")
+                return
+            }
+            toast.success("Login successful")
+            window.location.href = "/"
         })
-        if (!res?.ok) {
-            toast.error(res?.error || "Login failed")
-            return
-        }
-        toast.success("Login successful")
-        window.location.href = "/"
     }
 
     console.log(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/google `)
