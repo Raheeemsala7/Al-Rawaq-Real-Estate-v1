@@ -3,16 +3,15 @@
 
 
 export interface IUser {
-    id: string
-    username: string
+    _id: string
+    name: string
     email: string
-    phone: string,
     firstName: string,
     lastName: string,
-    profilePhoto: string,
-    emailVerified: boolean,
-    phoneVerified: boolean,
-    role: "ADMIN" | "USER",
+    is2FAEnabled: boolean,
+    isEmailVerified: boolean,
+    isGoogleUser: boolean,
+    role: "admin" | "user",
     createdAt: string
     updatedAt: string
 }

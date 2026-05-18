@@ -9,7 +9,7 @@ export const authOptions: NextAuthOptions = {
         Credentials({
             name: "Credentials",
             credentials: {
-                username: {},
+                email: {},
                 password: {},
                 token: {},
                 user: {}
@@ -18,24 +18,30 @@ export const authOptions: NextAuthOptions = {
 
                 const res = await fetch(`${process.env.API_URL}/auth/login`, {
                     method: "POST",
-                    body: JSON.stringify({ username: credentials?.username, password: credentials?.password }),
+                    body: JSON.stringify({ email: credentials?.email, password: credentials?.password }),
                     headers: {
                         "Content-Type": "application/json",
                     }
                 })
 
+                console.log("CREDENTIALS:", credentials);
+
+            
+
+                
                 const data: IApiResponse<IAuthResponse> = await res.json()
                 console.log("data login", data)
-                if (!data.status) {
+                if (!res.ok ) {
                     throw Error(data.message)
                 }
 
-                const loginData = data.payload
+                    console.log("STATUS:", res.status);
+                console.log("LOGIN RESPONSE:", data);
 
                 return {
-                    id: loginData.user.id,
-                    token: loginData.token,
-                    user: loginData.user
+                    id: data.user.id,
+                    token: data.accessToken,
+                    user: data.user
                 }
 
 

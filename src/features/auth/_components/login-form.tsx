@@ -1,26 +1,17 @@
 "use client"
-
-import { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { Lock, Eye, EyeOff, Loader2, Mail } from "lucide-react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { Field, FieldError, FieldLabel } from "@/shared/components/ui/field"
 import { Input } from "@/shared/components/ui/input"
 import { Button, buttonVariants } from "@/shared/components/ui/button"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { cn } from "@/shared/lib/utils"
 import { SignInFormType, signInSchema } from "../schema/auth-schema"
-
-
-
+import { signIn } from "next-auth/react"
+import { toast } from "sonner"
 
 export function LoginForm() {
-
-    const [showPassword, setShowPassword] = useState(false)
-    const router = useRouter()
-
-
     const form = useForm<SignInFormType>({
         resolver: zodResolver(signInSchema),
         defaultValues: {
@@ -33,8 +24,17 @@ export function LoginForm() {
 
     const onSubmit = async (data: SignInFormType) => {
         const { email, password } = data
-
-
+        const res = await signIn("credentials", {
+            email,
+            password,
+            redirect: false
+        })
+        if (!res?.ok) {
+            toast.error(res?.error || "Login failed")
+            return
+        }
+        toast.success("Login successful")
+        window.location.href = "/"
     }
 
     console.log(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/google `)
@@ -95,9 +95,6 @@ export function LoginForm() {
                         </Field>
                     )}
                 />
-
-
-
                 <Button type="submit" className='w-full' variant="default" disabled={isPending}>
                     {isPending ?
                         <Loader2 className='size-4 animate-spin transition-all' />
@@ -106,8 +103,6 @@ export function LoginForm() {
                     }
                     Sign In
                 </Button>
-
-
                 {/* Divider */}
                 <div className="relative my-3">
                     <div className="absolute inset-0 flex items-center">
