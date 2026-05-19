@@ -13,8 +13,8 @@ export function PropertyList() {
 
     const { data, isLoading } = useGetInfinteProperties();
 
-    // const allProperties = useMemo(() => data?.pages.flatMap((page) => page.data ?? []) ?? [], [data])
-    const allProperties = data
+    const allProperties = useMemo(() => data?.pages.flatMap((page) => page.data ?? []) ?? [], [data])
+    // const allProperties = data
 
     if (isLoading) return <div className="text-center p-4">جاري التحميل...</div>;
 
