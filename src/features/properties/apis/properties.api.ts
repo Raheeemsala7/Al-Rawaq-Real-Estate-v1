@@ -2,23 +2,64 @@ import { NextRequest } from "next/server"
 import { Property } from "../types/property"
 import { getToken } from "next-auth/jwt"
 import { HEADERS } from "@/shared/constant/api.constant"
+import { IApiResponse, IPagination } from "@/shared/lib/types/api"
 
 export const getAllProperties = async ({ req }: { req: NextRequest }) => {
 
     const token = await getToken({ req })
+    
+    const searchParams = req.nextUrl.searchParams
+    const query = new URLSearchParams()
+    searchParams.forEach((value, key) => {
+        if (value) {
+            query.set(key, value)
+        }
+    })
+    
+    const page = req.nextUrl.searchParams.get("page")
+    const limit = req.nextUrl.searchParams.get("limit")
+    const purpose = req.nextUrl.searchParams.get("purpose")
+    const type = req.nextUrl.searchParams.get("type") || ""
+    const maxPrice = req.nextUrl.searchParams.get("maxPrice")
+    const minPrice = req.nextUrl.searchParams.get("minPrice")
+    const location = req.nextUrl.searchParams.get("location")
+    const search = req.nextUrl.searchParams.get("search")
 
-    const res = await fetch(`${process.env.API_URL}/property`, {
+
+
+    // const query = new URLSearchParams({
+    //     page: String(page),
+    //     limit: String(limit),
+    // })
+
+    // if (purpose) {
+    //     query.set("purpose", purpose)
+    // }
+    // if (type) {
+    //     query.set("type", type)
+    // }
+    // if (maxPrice) {
+    //     query.set("maxPrice", maxPrice)
+    // }
+    // if (minPrice) {
+    //     query.set("minPrice", minPrice)
+    // }
+    // if (location) {
+    //     query.set("location", location)
+    // }
+    // if (search) {
+    //     query.set("search", search)
+    // }
+
+    const res = await fetch(`${process.env.API_URL}/property?${query.toString()}`, {
         headers: {
             ...HEADERS.authorize(token?.token || "")
         }
     }
     )
 
-    const data: Property[] = await res.json()
-
-    console.log("DATA RES" , data)
-
-    if (!res.ok) {
+    const data: IPagination<Property> = await res.json()
+    if (!data.success) {
         return data
     }
     return data

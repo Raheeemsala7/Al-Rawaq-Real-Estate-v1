@@ -1,25 +1,46 @@
 "use client"
 
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
-import { getAllProperties } from "../apis/properties.api"
+import { IApiResponse, IPagination } from "@/shared/lib/types/api"
+import { useInfiniteQuery } from "@tanstack/react-query"
+import { Property } from "../types/property"
+import { useSearchParams } from "next/navigation"
 
 export const useGetInfinteProperties = () => {
+    // Search params
+    const searchParams = useSearchParams()
+
+
+    // Variables
+    const filters = {
+        purpose: searchParams.get("purpose") || "",
+        type: searchParams.get("type") || "",
+        minPrice: searchParams.get("minPrice") || "",
+        maxPrice: searchParams.get("maxPrice") || "",
+        location: searchParams.get("location") || "",
+        search: searchParams.get("search") || "",
+        limit: searchParams.get("limit") || "6",
+    }
+
 
     return useInfiniteQuery({
-        queryKey: ["properties"],
+        queryKey: ["properties" , filters],
         initialPageParam: 1,
         queryFn: async ({ pageParam }) => {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_WEB_URL}/api/properties`)
+            const params = new URLSearchParams({
+                page: String(pageParam),
+                ...filters,
+            })
+            const res = await fetch(`${process.env.NEXT_PUBLIC_WEB_URL}/api/properties?${params.toString()}`)
 
-            const payload = await res.json()
+            const payload: IPagination<Property> = await res.json()
 
             return payload
         },
-        getNextPageParam: (lastpage) => {
-            if (lastPage.metadata.page === lastPage.metadata.totalPages) {
+        getNextPageParam: (lastPage) => {
+            if (lastPage.metadata.currentPage === lastPage.metadata.totalPages) {
                 return undefined
             }
-            return  undefined
+            return lastPage.metadata.currentPage + 1
         }
 
     })

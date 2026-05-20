@@ -3,9 +3,30 @@
 import { Button } from "@/shared/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/components/ui/select";
 import SearchBox from "./search-box";
+import { useRouter, useSearchParams } from "next/navigation";
 
 
 const PropertyFilter = () => {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    // القيم الحالية من الـ URL
+    const purpose = searchParams.get("purpose") || "";
+    const type = searchParams.get("type") || "";
+    const rooms = searchParams.get("rooms") || "";
+    const price = searchParams.get("price") || "";
+
+    const updateFilter = (key: string, value: string) => {
+
+        const params = new URLSearchParams(searchParams.toString());
+
+        console.log(key, value)
+
+        params.set(key, value);
+
+        router.push(`?${params.toString()}`);
+    };
+
 
 
     return (
@@ -16,7 +37,12 @@ const PropertyFilter = () => {
 
             <div className='flex items-center gap-4'>
                 {/* Purpose */}
-                <Select>
+                <Select
+                    value={purpose}
+                    onValueChange={(value) =>
+                        updateFilter("purpose", value ?? "")
+                    }
+                >
                     <SelectTrigger className='flex rtl:flex-row-reverse'>
                         <SelectValue placeholder="الغرض" />
                     </SelectTrigger>
@@ -27,7 +53,12 @@ const PropertyFilter = () => {
                 </Select>
 
                 {/* Type */}
-                <Select >
+                <Select
+                    value={type}
+                    onValueChange={(value) =>
+                        updateFilter("type", value ?? "")
+                    }
+                >
                     <SelectTrigger className='flex rtl:flex-row-reverse' >
                         <SelectValue placeholder="نوع العقار" />
                     </SelectTrigger>
@@ -55,7 +86,7 @@ const PropertyFilter = () => {
                 </Select>
 
                 {/* Price */}
-                {/* <Select value={filters.price} onValueChange={(v) => setFilter("price", v)}>
+                <Select>
                     <SelectTrigger className='flex rtl:flex-row-reverse' >
                         <SelectValue placeholder="السعر" />
                     </SelectTrigger>
@@ -65,7 +96,7 @@ const PropertyFilter = () => {
                         <SelectItem value="1000000-2000000">من مليون إلى 2 مليون</SelectItem>
                         <SelectItem value="2000000+">أكثر من 2 مليون</SelectItem>
                     </SelectContent>
-                </Select> */}
+                </Select>
                 {/* Price */}
                 {/* <PriceRangeSelect /> */}
 

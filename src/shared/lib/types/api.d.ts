@@ -17,11 +17,16 @@ declare type IErrorResponse = {
 declare type IApiResponse<T> = SuccessResponse<T> | IErrorResponse
 
 declare interface IPagination<T> {
+    success: Boolean,
     data: T[];
     metadata: {
-        page: number;
-        limit: number;
+        currentPage: number;
         totalPages: number;
+        totalItems: number;
+        itemsPerPage: number;
+        limit: number;
+        hasNextPage: boolean;
+        hasPrevPage: boolean;
         [key: string]: number;
     };
 }
