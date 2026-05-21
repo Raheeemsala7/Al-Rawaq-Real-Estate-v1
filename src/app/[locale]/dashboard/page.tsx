@@ -1,11 +1,6 @@
 import ComponentChart from '@/features/stats/_components/component-chart';
 import { getStatsAdminApi } from '@/features/stats/apis/stats.api';
 
-
-
-
-
-
 const AdminPage = async () => {
 
   const statusData = await getStatsAdminApi()

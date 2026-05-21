@@ -7,8 +7,12 @@ import { DataUser } from "../types/users"
 
 
 
-export const getUsersApi = async ({ req }: { req: NextRequest }) => {
+export const getAllUsersApi = async ({ req }: { req: NextRequest }) => {
     const token = await getToken({ req })
+
+    console.log("TOKEN")
+    console.log(token?.token)
+    console.log("TOKEN")
 
     if (!token?.token) return RESPONSES.unauthorized
 
@@ -30,9 +34,9 @@ export const getUsersApi = async ({ req }: { req: NextRequest }) => {
         }
     })
 
-    const payload: IPagination<DataUser[]> = await res.json()
+    const payload: IPagination<DataUser> = await res.json()
 
 
-    return payload.data
+    return payload
 
 }

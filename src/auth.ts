@@ -40,7 +40,7 @@ export const authOptions: NextAuthOptions = {
 
                 return {
                     id: payload.data.user._id,
-                    token: payload.data.token,
+                    token: payload.data.accessToken,
                     user: payload.data.user
                 }
             }

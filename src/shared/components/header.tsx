@@ -9,6 +9,7 @@ import { authOptions } from '@/auth'
 const Header = async () => {
     const t = await getTranslations('navigation');
     const session = await getServerSession(authOptions)
+    console.log(session)
 
     return (
         <header
@@ -48,7 +49,7 @@ const Header = async () => {
                         {/* <Phone className="w-4 h-4" />
                         <span>{t("common.phone")}</span> */}
  
-                        {session?.token ? (
+                        {session ? (
                             <UserData />
                         ) :
                             <>

@@ -1,7 +1,6 @@
-// src/app/admin/users/page.tsx
 "use client";
 
-import { useState } from "react";
+import { useDeferredValue, useEffect, useState } from "react";
 import { Button } from "@/shared/components/ui/button";
 import {
     Table,
@@ -16,14 +15,33 @@ import { ChevronLeft, ChevronRight, Search, Trash2, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/components/ui/card";
 import { Input } from "@/shared/components/ui/input";
 import { Badge } from "@/shared/components/ui/badge";
+import { useGetAllUsers } from "@/features/user/hooks/user.hook";
+import { useRouter, useSearchParams } from "next/navigation";
 
 
 export default function AdminUsersPage() {
-    const [search, setSearch] = useState("");
+    const searchParams = useSearchParams()
+    const router = useRouter()
+    const [searchInput, setSearchInput] = useState("");
+    const deferredSearch = useDeferredValue(searchInput);
+    const page = searchParams.get("page") || 1
 
-    // const { data, isLoading } = useUsersQuery(search, page, 10 );
-    // const deleteMutation = useDeleteUserMutation();
+    const { data, isLoading } = useGetAllUsers();
 
+    useEffect(() => {
+        const params = new URLSearchParams(searchParams.toString());
+
+        if (deferredSearch) {
+            params.set("search", deferredSearch);
+        } else {
+            params.delete("search");
+        }
+
+        params.set("page", "1");
+
+        router.push(`?${params.toString()}`);
+
+    }, [deferredSearch]);
 
 
 
@@ -38,16 +56,12 @@ export default function AdminUsersPage() {
         );
     }
 
-    if (!data?.data) {
+    if (!data?.success) {
         return <h4>not Found</h4>
     }
-  
 
-    const filteredUsers = users.filter(
-        (user) =>
-            user.name.toLowerCase().includes(search.toLowerCase()) ||
-            user.email.toLowerCase().includes(search.toLowerCase())
-    );
+    const users = data.data
+
 
     const handleDelete = (userId: string) => {
         if (confirm("هل انت متأكد من حذف المستخدم؟")) {
@@ -69,6 +83,8 @@ export default function AdminUsersPage() {
     const getRoleLabel = (role: string) => {
         return role === "admin" ? "مدير" : "مشتري";
     };
+
+
 
     return (
         <>
@@ -92,7 +108,7 @@ export default function AdminUsersPage() {
                 <div className="flex gap-3">
                     <div className="rounded-lg bg-card px-4 py-2 shadow-card">
                         <p className="text-xs text-muted-foreground">إجمالي المستخدمين</p>
-                        <p className="text-xl font-bold text-foreground">{users.length}</p>
+                        <p className="text-xl font-bold text-foreground">{data.metadata.totalUsers}</p>
                     </div>
                     <div className="rounded-lg bg-card px-4 py-2 shadow-card">
                         <p className="text-xs text-muted-foreground">المدراء</p>
@@ -119,8 +135,8 @@ export default function AdminUsersPage() {
                             <Search className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                             <Input
                                 placeholder="البحث عن مستخدم..."
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
+                                value={searchInput}
+                                onChange={(e) => setSearchInput(e.target.value)}
                                 className="pr-10 bg-background"
                             />
                         </div>
@@ -140,7 +156,7 @@ export default function AdminUsersPage() {
                                 </TableRow>
                             </TableHeader>
                             <TableBody >
-                                {filteredUsers.length === 0 ? (
+                                {users.length === 0 ? (
                                     <TableRow className="p-4">
                                         <TableCell colSpan={5} className="h-32 text-center">
                                             <div className="flex flex-col items-center gap-2">
@@ -150,7 +166,7 @@ export default function AdminUsersPage() {
                                         </TableCell>
                                     </TableRow>
                                 ) : (
-                                    filteredUsers.map((user, index) => (
+                                    users.map((user, index) => (
                                         <TableRow
                                             key={user._id}
                                             className="animate-slide-up transition-colors hover:bg-table-hover"
@@ -191,15 +207,15 @@ export default function AdminUsersPage() {
                     {/* Pagination */}
                     <div className="flex items-center justify-between border-t border-border/50 px-6 py-4">
                         <p className="text-sm text-muted-foreground">
-                            عرض {filteredUsers.length} من {users.length} مستخدم
+                            عرض {((Number(page) - 1) * 12) + 1} - {((Number(page) - 1) * 12) + data.data.length} من {data.metadata.totalUsers}
                         </p>
 
                         <div className="flex items-center gap-2">
                             <Button
                                 variant="outline"
                                 size="sm"
-                                disabled={page === 1 }
-                                onClick={() => setPage((p) => p - 1)}
+                                disabled={Number(page) <= 1}
+                                onClick={() => router.push(`?page=${Number(page) - 1}`)}
                                 className="gap-1"
                             >
                                 <ChevronRight className="h-4 w-4" />
@@ -215,8 +231,8 @@ export default function AdminUsersPage() {
                             <Button
                                 variant="outline"
                                 size="sm"
-                                disabled={users.length <= 10}
-                                onClick={() => setPage((p) => p + 1)}
+                                disabled={data.metadata.totalPages <= Number(page)}
+                                onClick={() => router.push(`?page=${Number(page) + 1}`)}
                                 className="gap-1"
                             >
                                 التالي

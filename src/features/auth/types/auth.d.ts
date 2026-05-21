@@ -3,6 +3,6 @@ import { IUser } from "./user";
 
 
 export interface IAuthResponse {
-    token: string;
+    accessToken: string;
     user: IUser
 }
