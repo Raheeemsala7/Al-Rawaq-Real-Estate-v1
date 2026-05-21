@@ -29,22 +29,20 @@ export const authOptions: NextAuthOptions = {
             
 
                 
-                const data: IApiResponse<IAuthResponse> = await res.json()
-                console.log("data login", data)
-                if (!res.ok ) {
-                    throw Error(data.message)
+                const payload: IApiResponse<IAuthResponse> = await res.json()
+                console.log("payload login", payload)
+                if (!payload.success ) {
+                    throw Error(payload.message)
                 }
 
                     console.log("STATUS:", res.status);
-                console.log("LOGIN RESPONSE:", data);
+                console.log("LOGIN RESPONSE:", payload);
 
                 return {
-                    id: data.user.id,
-                    token: data.accessToken,
-                    user: data.user
+                    id: payload.data.user._id,
+                    token: payload.data.token,
+                    user: payload.data.user
                 }
-
-
             }
         })
     ],

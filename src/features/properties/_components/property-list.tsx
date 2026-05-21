@@ -10,20 +10,11 @@ import { Badge } from "@/shared/components/ui/badge";
 import { Card } from "@/shared/components/ui/card";
 
 export function PropertyList() {
-
     const { data, isLoading } = useGetInfinteProperties();
-
     const allProperties = useMemo(() => data?.pages.flatMap((page) => page.data ?? []) ?? [], [data])
-    // const allProperties = data
 
     if (isLoading) return <div className="text-center p-4">جاري التحميل...</div>;
-
-
-    console.log(allProperties)
-
     if (!data || allProperties.length === 0) return <div className="text-center p-4">لا توجد نتائج مطابقة</div>;
-
-
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">

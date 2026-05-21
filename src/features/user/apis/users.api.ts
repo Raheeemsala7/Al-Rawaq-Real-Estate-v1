@@ -12,7 +12,6 @@ export const getUsersApi = async ({ req }: { req: NextRequest }) => {
 
     if (!token?.token) return RESPONSES.unauthorized
 
-
     const page = req.nextUrl.searchParams.get("page") || "1";
     const limit = req.nextUrl.searchParams.get("limit") || "12";
 
@@ -22,7 +21,6 @@ export const getUsersApi = async ({ req }: { req: NextRequest }) => {
         page,
         limit,
     });
-
 
     if (search) query.append("search", search);
 

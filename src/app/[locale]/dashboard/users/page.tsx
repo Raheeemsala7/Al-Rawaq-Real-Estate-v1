@@ -20,13 +20,11 @@ import { Badge } from "@/shared/components/ui/badge";
 
 export default function AdminUsersPage() {
     const [search, setSearch] = useState("");
-    const [page, setPage] = useState(1);
 
     // const { data, isLoading } = useUsersQuery(search, page, 10 );
     // const deleteMutation = useDeleteUserMutation();
 
 
-    console.log(data?.data)
 
 
     if (isLoading) {
@@ -43,8 +41,7 @@ export default function AdminUsersPage() {
     if (!data?.data) {
         return <h4>not Found</h4>
     }
-    const users = data.data
-    console.log(users)
+  
 
     const filteredUsers = users.filter(
         (user) =>
