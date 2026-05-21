@@ -1,3 +1,4 @@
+import { createPropertySchema } from "../schema/property.schema";
 
 export interface LocationType {
     governorate: string;
@@ -60,3 +61,4 @@ export type Property = {
     createdAt: string;
     updatedAt: string;
 };
+export type CreatePropertyFormData = z.infer<typeof createPropertySchema>;

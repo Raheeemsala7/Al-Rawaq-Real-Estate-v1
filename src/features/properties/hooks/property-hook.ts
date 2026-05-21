@@ -1,7 +1,7 @@
 "use client"
 
 import { IApiResponse, IPagination } from "@/shared/lib/types/api"
-import { useInfiniteQuery } from "@tanstack/react-query"
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
 import { Property } from "../types/property"
 import { useSearchParams } from "next/navigation"
 
@@ -23,7 +23,7 @@ export const useGetInfinteProperties = () => {
 
 
     return useInfiniteQuery({
-        queryKey: ["properties" , filters],
+        queryKey: ["properties", filters],
         initialPageParam: 1,
         queryFn: async ({ pageParam }) => {
             const params = new URLSearchParams({
@@ -47,20 +47,33 @@ export const useGetInfinteProperties = () => {
 
 
 }
-// export const useGetInfinteProperties = () => {
-
-//     return useQuery({
-//         queryKey: ["properties"],
-//         queryFn: async () => {
-//             const res = await fetch(`${process.env.NEXT_PUBLIC_WEB_URL}/api/properties`)
-
-//             const payload = await res.json()
-
-//             return payload
-//         },
 
 
-//     })
 
+export const useGetAdminProperties = () => {
+    // searchParams
+    const searchParams = useSearchParams()
 
-// }
+    // variables
+    const page = searchParams.get("page") || 1
+    const search = searchParams.get("search")
+
+    return useQuery({
+        queryKey: ["admin-properties", page, search],
+        queryFn: async () => {
+            const query = new URLSearchParams()
+            query.append("page", String(page));
+            if (search) {
+                query.append("search", search);
+            }
+
+            const res = await fetch(`/api/admin/properties`)
+            const payload :IPagination<Property> = await res.json()
+
+            if (!payload.success) {
+                throw Error("something error")
+            }
+            return payload
+        }
+    })
+}
