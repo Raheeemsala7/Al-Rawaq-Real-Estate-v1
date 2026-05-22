@@ -9,6 +9,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/shared/components/ui/textarea'
 import LeafletLocationPicker from './LeafletLocationPicker'
 import { Button } from '@/shared/components/ui/button'
+import { useState } from 'react'
+import { UploadFileField } from './ImageUploadField'
 
 const CreatePropertyForm = () => {
 
@@ -37,6 +39,11 @@ const CreatePropertyForm = () => {
 
         }
     })
+
+    const [previews, setPreviews] = useState<string[]>(() => {
+        const images = form.getValues("images") || [];
+        return images.map((file: File) => URL.createObjectURL(file));
+    });
 
     const onSubmit = async (data: CreatePropertyFormData) => {
         console.log(data)
@@ -395,6 +402,9 @@ const CreatePropertyForm = () => {
                 />
             </div>
 
+            <UploadFileField form={form} previews={previews} setPreviews={setPreviews} />
+
+
             <div className="flex gap-4 flex-col sm:flex-row">
 
                 <Controller
@@ -494,9 +504,9 @@ const CreatePropertyForm = () => {
             </div>
 
             <Button type="submit" className='w-full' variant="default" disabled={false}>
-                    {/* {isPending ? <Loader2 className='w-5 h-5 animate-spin' /> : null} */}
-                    انشاء عقار
-                </Button>
+                {/* {isPending ? <Loader2 className='w-5 h-5 animate-spin' /> : null} */}
+                انشاء عقار
+            </Button>
 
         </form>
     )
