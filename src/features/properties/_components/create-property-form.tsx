@@ -9,15 +9,34 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/shared/components/ui/textarea'
 import LeafletLocationPicker from './LeafletLocationPicker'
 import { Button } from '@/shared/components/ui/button'
-import { useState } from 'react'
+import { useState, useTransition } from 'react'
 import { UploadFileField } from './ImageUploadField'
+import { useCreatePropertyMutation } from '../hooks/property-hook'
+import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
+import { Loader2 } from 'lucide-react'
+
+const amenitiesOptions = [
+    "مصعد",
+    "جراج",
+    "أمن 24 ساعة",
+    "غاز طبيعي",
+    "عداد كهرباء",
+    "عداد مياه",
+    "تكييف",
+    "مطبخ",
+    "بلكونة",
+    "إنترنت",
+]
 
 const CreatePropertyForm = () => {
 
+    const [isPending, startTransition] = useTransition()
+    const router = useRouter()
     const form = useForm<CreatePropertyFormData>({
         resolver: zodResolver(createPropertySchema),
         defaultValues: {
-            title: "",
+            title:"شقة للإيجار في البنفسج عمارات – التجمع الخامس",
             description: "",
             price: 455,
             pricePerMeter: 455,
@@ -31,14 +50,22 @@ const CreatePropertyForm = () => {
                     lng: 29.9187,
                 },
             },
+            amenities: [],
+            details: {
+                view: "الإطلالة علي البحر",
+                listingCode: "RWQ-001",
+            },
             type: "apartment",
             purpose: "rent",
             paymentMethod: "cash",
             advertiserType: "owner",
             status: "pending",
-
         }
     })
+
+    const { mutateAsync } = useCreatePropertyMutation()
+
+
 
     const [previews, setPreviews] = useState<string[]>(() => {
         const images = form.getValues("images") || [];
@@ -46,7 +73,12 @@ const CreatePropertyForm = () => {
     });
 
     const onSubmit = async (data: CreatePropertyFormData) => {
-        console.log(data)
+        startTransition(async () => {
+            await mutateAsync(data)
+            toast.success("Done sucessfully create property")
+            form.reset()
+            router.push("/dashboard/properties")
+        })
     }
 
     return (
@@ -224,6 +256,105 @@ const CreatePropertyForm = () => {
                     )}
                 />
             </div>
+            <div className="space-y-3">
+                <h4 className="text-2xl font-semibold">
+                    المميزات والخدمات
+                </h4>
+
+                <Controller
+                    control={form.control}
+                    name="amenities"
+                    render={({ field }) => (
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            {amenitiesOptions.map((item) => {
+                                const checked = field.value?.includes(item)
+
+                                return (
+                                    <label
+                                        key={item}
+                                        className="flex items-center gap-2 border rounded-xl p-3 cursor-pointer"
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            checked={checked}
+                                            onChange={(e) => {
+                                                if (e.target.checked) {
+                                                    field.onChange([
+                                                        ...(field.value || []),
+                                                        item,
+                                                    ])
+                                                } else {
+                                                    field.onChange(
+                                                        field.value.filter(
+                                                            (value: string) => value !== item
+                                                        )
+                                                    )
+                                                }
+                                            }}
+                                        />
+
+                                        <span>{item}</span>
+                                    </label>
+                                )
+                            })}
+                        </div>
+                    )}
+                />
+            </div>
+
+            <div className="space-y-4">
+                <h4 className="text-2xl font-semibold">
+                    تفاصيل إضافية
+                </h4>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    <Controller
+                        control={form.control}
+                        name="details.view"
+                        render={({ field, fieldState }) => (
+                            <Field>
+                                <FieldLabel>
+                                    الإطلالة
+                                </FieldLabel>
+
+                                <Input
+                                    placeholder="مثال: تطل على البحر"
+                                    {...field}
+                                    value={field.value || ""}
+                                />
+
+                                {fieldState.invalid && (
+                                    <FieldError errors={[fieldState.error]} />
+                                )}
+                            </Field>
+                        )}
+                    />
+
+                    <Controller
+                        control={form.control}
+                        name="details.listingCode"
+                        render={({ field, fieldState }) => (
+                            <Field>
+                                <FieldLabel>
+                                    كود الإعلان
+                                </FieldLabel>
+
+                                <Input
+                                    placeholder="مثال: RWQ-001"
+                                    {...field}
+                                    value={field.value || ""}
+                                />
+
+                                {fieldState.invalid && (
+                                    <FieldError errors={[fieldState.error]} />
+                                )}
+                            </Field>
+                        )}
+                    />
+
+                </div>
+            </div>
 
             <div className="flex gap-4 flex-wrap flex-col sm:flex-row">
                 <Controller
@@ -287,13 +418,15 @@ const CreatePropertyForm = () => {
                     )}
                 />
             </div>
+
+
             <div className='space-y-3 relative'>
                 <h4 className='text-2xl font-semibold'>Location</h4>
 
                 <div className="flex gap-4 flex-col sm:flex-row">
                     <Controller
                         control={form.control}
-                        name='pricePerMeter'
+                        name='location.street'
                         render={({ field, fieldState }) => (
                             <Field>
                                 <FieldLabel className="font-mono">
@@ -312,7 +445,7 @@ const CreatePropertyForm = () => {
                     />
                     <Controller
                         control={form.control}
-                        name='pricePerMeter'
+                        name='location.city'
                         render={({ field, fieldState }) => (
                             <Field>
                                 <FieldLabel className="font-mono">
@@ -332,7 +465,7 @@ const CreatePropertyForm = () => {
                     />
                     <Controller
                         control={form.control}
-                        name='pricePerMeter'
+                        name='location.governorate'
                         render={({ field, fieldState }) => (
                             <Field>
                                 <FieldLabel className="font-mono">
@@ -403,8 +536,6 @@ const CreatePropertyForm = () => {
             </div>
 
             <UploadFileField form={form} previews={previews} setPreviews={setPreviews} />
-
-
             <div className="flex gap-4 flex-col sm:flex-row">
 
                 <Controller
@@ -503,8 +634,8 @@ const CreatePropertyForm = () => {
 
             </div>
 
-            <Button type="submit" className='w-full' variant="default" disabled={false}>
-                {/* {isPending ? <Loader2 className='w-5 h-5 animate-spin' /> : null} */}
+            <Button type="submit" className='w-full' variant="default" disabled={isPending}>
+                {isPending ?? <Loader2 className='w-5 h-5 animate-spin' />}
                 انشاء عقار
             </Button>
 

@@ -28,11 +28,16 @@ export const createPropertySchema = z.object({
             "كفر الشيخ"
         ]), // المحافظات المتاحة
         coordinates: z.object({
-            lat: z.coerce.number().optional(),
-            lng: z.coerce.number().optional(),
+            lat: z.coerce.number(),
+            lng: z.coerce.number(),
         }),
     }),
-    images: z.array(z.instanceof(File)).optional(),
+    details: z.object({
+        view: z.string().optional(),
+        listingCode: z.string().optional(),
+    }).optional(),
+    amenities: z.array(z.string()).optional(),
+    images: z.array(z.instanceof(File)),
     type: z.enum(["apartment", "villa", "land", "office", "store"]),
     paymentMethod: z.enum(["cash", "installments", "bank-financing"]),
     advertiserType: z.enum(["owner", "agent", "developer"]),

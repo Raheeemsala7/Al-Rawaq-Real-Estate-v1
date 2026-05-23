@@ -1,9 +1,10 @@
 "use client"
 
 import { IApiResponse, IPagination } from "@/shared/lib/types/api"
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { Property } from "../types/property"
 import { useSearchParams } from "next/navigation"
+import { createPropertyAction } from "../apis/properties.action"
 
 export const useGetInfinteProperties = () => {
     // Search params
@@ -68,12 +69,24 @@ export const useGetAdminProperties = () => {
             }
 
             const res = await fetch(`/api/admin/properties`)
-            const payload :IPagination<Property> = await res.json()
+            const payload: IPagination<Property> = await res.json()
 
             if (!payload.success) {
                 throw Error("something error")
             }
             return payload
+        }
+    })
+}
+
+export const useCreatePropertyMutation = () => {
+    const queryClient = useQueryClient()
+    return useMutation({
+        mutationFn: createPropertyAction,
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ["properties"],
+            })
         }
     })
 }
