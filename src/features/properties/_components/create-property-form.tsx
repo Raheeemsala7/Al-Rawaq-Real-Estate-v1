@@ -76,8 +76,8 @@ const CreatePropertyForm = () => {
         startTransition(async () => {
             await mutateAsync(data)
             toast.success("Done sucessfully create property")
-            form.reset()
-            router.push("/dashboard/properties")
+            // form.reset()
+            // router.push("/dashboard/properties")
         })
     }
 

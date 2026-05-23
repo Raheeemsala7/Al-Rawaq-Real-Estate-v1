@@ -16,6 +16,7 @@ export const getAllProperties = async ({ req }: { req: NextRequest }) => {
             query.set(key, value)
         }
     })
+    query.set("limit" , "6")
 
     const res = await fetch(`${process.env.API_URL}/property?${query.toString()}`, {
         headers: {

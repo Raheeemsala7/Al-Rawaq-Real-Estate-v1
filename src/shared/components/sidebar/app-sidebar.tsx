@@ -12,7 +12,6 @@ import {
 import { Building2, CheckCircle2, LayoutDashboard, ListCheck, MessageCircleWarning, Settings, Users } from "lucide-react"
 import { getLocale } from "next-intl/server";
 import Link from "next/link";
-import { NavUser } from "./nav-user";
 
 
 // Menu items.
