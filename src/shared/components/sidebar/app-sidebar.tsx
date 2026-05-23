@@ -9,7 +9,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/shared/components/ui/sidebar"
-import { Building2, CheckCircle2, LayoutDashboard, ListCheck, MessageCircleWarning, Settings, Users } from "lucide-react"
+import { Building2, CheckCircle2, LayoutDashboard, MessageCircleWarning, Users } from "lucide-react"
 import { getLocale } from "next-intl/server";
 import Link from "next/link";
 

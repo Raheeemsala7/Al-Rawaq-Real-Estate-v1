@@ -2,8 +2,9 @@ import { NextRequest } from "next/server"
 import { Property } from "../types/property"
 import { getToken } from "next-auth/jwt"
 import { HEADERS } from "@/shared/constant/api.constant"
-import { IPagination } from "@/shared/lib/types/api"
+import { IApiResponse, IPagination } from "@/shared/lib/types/api"
 import { RESPONSES } from "@/shared/constant/api.responses"
+import { getNextAuthToken } from "@/shared/lib/auth.util"
 
 export const getAllProperties = async ({ req }: { req: NextRequest }) => {
 
@@ -65,5 +66,28 @@ export const getAdminAllProperties = async ({ req }: { req: NextRequest }) => {
 
     return payload
 
+
+}
+
+
+
+export const getFeatureProperties = async () => {
+
+    const token = await getNextAuthToken()
+    if (!token?.token) return RESPONSES.unauthorized
+    
+    const res = await fetch(`${process.env.API_URL}/property/featured` , {
+        headers : {
+            ...HEADERS.authorize(token.token)
+        }
+    })
+
+    const payload : IApiResponse<Property[]> = await res.json()
+
+    if (!payload.success) {
+        return payload
+    }
+
+    return payload
 
 }
