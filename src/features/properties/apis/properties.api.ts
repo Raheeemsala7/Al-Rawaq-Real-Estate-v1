@@ -91,3 +91,11 @@ export const getFeatureProperties = async () => {
     return payload
 
 }
+
+export const getSinglePropertyApi = async (propertyId : string) => {
+
+    const res = await fetch(`${process.env.API_URI}/property/${propertyId}`)
+    const payload : IApiResponse<Property> = await res.json()
+
+    return payload
+}
