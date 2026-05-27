@@ -36,23 +36,38 @@ export const createPropertyAction = async (data: CreatePropertyFormData) => {
     // object
     formData.append("details", JSON.stringify(data.details))
     // الصور
-    data.images.forEach((file : File) => {
+    data.images.forEach((file: File) => {
         formData.append("images", file)
     })
 
-    console.log(formData)
 
     const res = await fetch(`${process.env.API_URL}/property/create`, {
-        method : "POST",
+        method: "POST",
         headers: {
             ...HEADERS.authorize(token.token),
         },
-        body : formData
+        body: formData
     })
     const payload: IApiResponse<{ property: Property }> = await res.json()
 
     if (!payload.success) {
         return payload
     }
+    return payload
+}
+
+export const deletePropertyAction = async (id: string) => {
+
+    const token = await getNextAuthToken()
+    if (!token?.token) return RESPONSES.unauthorized
+
+    const res = await fetch(`${process.env.API_URL}/property/${id}`, {
+        method: "DELETE",
+        headers: {
+            ...HEADERS.authorize(token.token),
+        },
+    })
+    const payload :IApiResponse<null> = await res.json()
+
     return payload
 }

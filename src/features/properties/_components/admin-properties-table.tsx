@@ -4,12 +4,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui
 import { Input } from '@/shared/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/components/ui/select'
 import { Bath, Bed, Building2, ChevronLeft, ChevronRight, Eye, ImageIcon, MapPin, Maximize, Pencil, Search, Trash2 } from 'lucide-react'
-import React, { useState } from 'react'
-import { useGetAdminProperties } from '../hooks/property-hook'
+import React, { useState, useTransition } from 'react'
+import { useDeletePropertyMutation, useGetAdminProperties } from '../hooks/property-hook'
 import { Property } from '../types/property'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/shared/components/ui/table'
 import { Badge } from '@/shared/components/ui/badge'
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/shared/components/ui/dialog'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { toast } from 'sonner'
 
 const propertyTypeLabels: Record<string, string> = {
     apartment: "شقة",
@@ -46,15 +48,17 @@ const advertiserLabels: Record<string, string> = {
 
 
 const AdminPropertiesTable = () => {
-
-        const [search, setSearch] = useState("");
-    const [page, setPage] = useState(1);
+    const searchParams = useSearchParams()
+    const [isPending, startTranstion] = useTransition()
+    const [search, setSearch] = useState("");
+    const page = searchParams.get("page") || 1
     const [statusFilter, setStatusFilter] = useState<string>("all");
     const [typeFilter, setTypeFilter] = useState<string>("all");
-    const [isLoading] = useState(false);
+    const router = useRouter()
     const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
 
     const { data, isLoading: isLoadingProperties } = useGetAdminProperties();
+    const { mutateAsync: deleteProperty } = useDeletePropertyMutation();
 
     if (isLoadingProperties) {
         return (
@@ -88,9 +92,16 @@ const AdminPropertiesTable = () => {
     });
 
     const handleDelete = (propertyId: string, propertyTitle: string) => {
-        // if (confirm(`هل أنت متأكد من حذف العقار "${propertyTitle}"؟`)) {
-        console.log("Deleting property:", propertyId);
-        // }
+        console.log(propertyId)
+        startTranstion(async () => {
+            const payload = await deleteProperty(propertyId)
+            if (payload.success) {
+                toast.success(payload.message)
+                return
+            }
+            toast.error(payload.message)
+
+        })
     };
 
     const handleEdit = (property: Property) => {
@@ -471,8 +482,8 @@ const AdminPropertiesTable = () => {
                             <Button
                                 variant="outline"
                                 size="sm"
-                                disabled={page === 1}
-                                onClick={() => setPage((p) => p - 1)}
+                                disabled={Number(page) <= 1}
+                                onClick={() => router.push(`?page=${Number(page) - 1}`)}
                                 className="gap-1"
                             >
                                 <ChevronRight className="h-4 w-4" />
@@ -488,8 +499,8 @@ const AdminPropertiesTable = () => {
                             <Button
                                 variant="outline"
                                 size="sm"
-                                // disabled={filteredProperties.length < 10}
-                                // onClick={() => setPage((p) => p + 1)}
+                                disabled={data.metadata.totalPages <= Number(page)}
+                                onClick={() => router.push(`?page=${Number(page) + 1}`)}
                                 className="gap-1"
                             >
                                 التالي

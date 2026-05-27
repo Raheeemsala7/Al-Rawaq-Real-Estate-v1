@@ -1,5 +1,7 @@
+import PricePerformanceSection from '@/features/properties/_components/price-performance-section'
 import { PropertyGallery } from '@/features/properties/_components/PropertyGallery'
 import PropertyMapModal from '@/features/properties/_components/PropertyMapModal'
+import RecommendedProperties from '@/features/properties/_components/recommended-properties'
 import { getSinglePropertyApi } from '@/features/properties/apis/properties.api'
 import { Button, buttonVariants } from '@/shared/components/ui/button'
 import { Card, CardContent } from '@/shared/components/ui/card'
@@ -18,6 +20,7 @@ const PropertyPage = async ({ params }: { params: Promise<{ propertyId: string }
         return <p>{propertyData.message ?? "حدث خطأ"}</p>
     }
     const property = propertyData.data.property
+    const relatedProperties = propertyData.data.relatedProperties
 
     const adreesLocationOnMap = `${property.location.street} , ${property.location.city} , ${property.location.governorate} `
 
@@ -26,7 +29,8 @@ const PropertyPage = async ({ params }: { params: Promise<{ propertyId: string }
         return input.toString().replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[parseInt(d)]);
     }
 
-    console.log(property)
+    console.log(relatedProperties.length)
+    console.log(propertyData)
 
     return (
         <section className='mt-8'>
@@ -109,7 +113,7 @@ const PropertyPage = async ({ params }: { params: Promise<{ propertyId: string }
                             <div className="grid grid-cols-2 gap-y-4">
                                 <div className="flex items-center gap-2">
                                     <span>
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clip-rule="evenodd" d="M7 13V7.5C7 4.46243 9.46243 2 12.5 2C15.5376 2 18 4.46243 18 7.5V13H19.0854H20.5C20.7761 13 21 12.7761 21 12.5C21 12.2239 20.7761 12 20.5 12H20V11H20.5C21.3284 11 22 11.6716 22 12.5C22 13.1531 21.5826 13.7087 21 13.9146V20C21 20.5523 20.5523 21 20 21H18C18 21.5523 17.5523 22 17 22H8C7.44771 22 7 21.5523 7 21H5C4.44772 21 4 20.5523 4 20V13.9146C3.4174 13.7087 3 13.1531 3 12.5C3 11.6716 3.67157 11 4.5 11L5 11.02V12H4.5C4.22386 12 4 12.2239 4 12.5C4 12.7761 4.22386 13 4.5 13H5.91465H7ZM17 10.02V7.5C17 5.18459 15.2513 3.27762 13.0025 3.02775C13.0023 3.04165 13.0021 3.05553 13.0019 3.0694C13.0722 7.43923 14.9494 9.72772 17 10.02ZM12.502 6.53763C11.672 9.296 9.91422 10.8222 8 11.0281V13H17V11.0276C15.0873 10.82 13.3314 9.29405 12.502 6.53763ZM12.0015 3.0273C9.75081 3.27533 8 5.1832 8 7.5V10.0206C10.0521 9.73074 11.9318 7.44211 12.0021 3.0694C12.0019 3.05538 12.0017 3.04135 12.0015 3.0273ZM8 14H5V19.75C5 19.8881 5.11193 20 5.25 20H19.75C19.8881 20 20 19.8881 20 19.75V14H17V20H16V14H13V20H12V14H9V20H8V14Z" fill="currentColor"></path></svg>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M7 13V7.5C7 4.46243 9.46243 2 12.5 2C15.5376 2 18 4.46243 18 7.5V13H19.0854H20.5C20.7761 13 21 12.7761 21 12.5C21 12.2239 20.7761 12 20.5 12H20V11H20.5C21.3284 11 22 11.6716 22 12.5C22 13.1531 21.5826 13.7087 21 13.9146V20C21 20.5523 20.5523 21 20 21H18C18 21.5523 17.5523 22 17 22H8C7.44771 22 7 21.5523 7 21H5C4.44772 21 4 20.5523 4 20V13.9146C3.4174 13.7087 3 13.1531 3 12.5C3 11.6716 3.67157 11 4.5 11L5 11.02V12H4.5C4.22386 12 4 12.2239 4 12.5C4 12.7761 4.22386 13 4.5 13H5.91465H7ZM17 10.02V7.5C17 5.18459 15.2513 3.27762 13.0025 3.02775C13.0023 3.04165 13.0021 3.05553 13.0019 3.0694C13.0722 7.43923 14.9494 9.72772 17 10.02ZM12.502 6.53763C11.672 9.296 9.91422 10.8222 8 11.0281V13H17V11.0276C15.0873 10.82 13.3314 9.29405 12.502 6.53763ZM12.0015 3.0273C9.75081 3.27533 8 5.1832 8 7.5V10.0206C10.0521 9.73074 11.9318 7.44211 12.0021 3.0694C12.0019 3.05538 12.0017 3.04135 12.0015 3.0273ZM8 14H5V19.75C5 19.8881 5.11193 20 5.25 20H19.75C19.8881 20 20 19.8881 20 19.75V14H17V20H16V14H13V20H12V14H9V20H8V14Z" fill="currentColor"></path></svg>
                                     </span>
                                     <p className='text-[#333] font-normal'>شرفة</p>
                                 </div>
@@ -131,13 +135,24 @@ const PropertyPage = async ({ params }: { params: Promise<{ propertyId: string }
                         <PropertyMapModal address={adreesLocationOnMap} coordinates={property.location.coordinates || { lat: 0, lng: 0 }} />
                         <Separator className='!h-[0.75px] my-6' />
 
-                        <div className="py-4">
-                            <h5 className='mb-12 text-2xl font-semibold'>مزايا</h5>
+                        <PricePerformanceSection
+                            priceDiffPercent={25}
+                            sizeDiffPercent={23}
+                            avgPrice={60000}
+                            avgArea={180}
+                            agentName={property.listedBy.name}
+                            agencyName="Global Marketing Real Estate"
+                            agencyListingsCount={1650}
+                            bedroomsCount={property.bedrooms}
+                            city={property.location.governorate}
+                        />
 
+                        <Separator className='!h-[0.75px] my-6' />
+
+                        <div className='py-4 mb-6'>
+                            <RecommendedProperties properties={relatedProperties} />
                         </div>
 
-
-                        {/* <RecommendedProperties id={id} /> */}
 
 
 

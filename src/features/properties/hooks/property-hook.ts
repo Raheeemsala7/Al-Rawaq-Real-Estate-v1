@@ -4,7 +4,7 @@ import { IApiResponse, IPagination } from "@/shared/lib/types/api"
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { Property } from "../types/property"
 import { useSearchParams } from "next/navigation"
-import { createPropertyAction } from "../apis/properties.action"
+import { createPropertyAction, deletePropertyAction } from "../apis/properties.action"
 
 export const useGetInfinteProperties = () => {
     // Search params
@@ -68,7 +68,7 @@ export const useGetAdminProperties = () => {
                 query.append("search", search);
             }
 
-            const res = await fetch(`/api/admin/properties`)
+            const res = await fetch(`/api/admin/properties?${query.toString()}`)
             const payload: IPagination<Property> = await res.json()
 
             if (!payload.success) {
@@ -86,6 +86,17 @@ export const useCreatePropertyMutation = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ["properties"],
+            })
+        }
+    })
+}
+export const useDeletePropertyMutation = () => {
+    const queryClient = useQueryClient()
+    return useMutation({
+        mutationFn: deletePropertyAction,
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ["properties" ,"admin-properties" ],
             })
         }
     })

@@ -47,12 +47,17 @@ export type Property = {
         governorate: string;
         street: string;
         coordinates: {
-            lat:number,
+            lat: number,
             lng: number
         }
     };
 
-    listedBy: string;
+    listedBy: {
+        _id: string
+        name: string
+        email: string
+        role: string
+    }
 
     images: {
         _id: string;
@@ -69,6 +74,6 @@ export type CreatePropertyFormData = z.infer<typeof createPropertySchema>;
 
 
 export interface GetSinglePropertyResponse {
-  property: Property
-  relatedProperties: Property[]
+    property: Property
+    relatedProperties: Property[]
 }

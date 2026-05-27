@@ -52,7 +52,7 @@ export const getAdminAllProperties = async ({ req }: { req: NextRequest }) => {
         query.append("search", search)
     }
 
-    const res = await fetch(`${process.env.API_URL}/admin/properties`, {
+    const res = await fetch(`${process.env.API_URL}/admin/properties?${query.toString()}`, {
         headers :{
             ...HEADERS.authorize(token.token)
         }
@@ -95,6 +95,8 @@ export const getFeatureProperties = async () => {
 export const getSinglePropertyApi = async (propertyId : string) => {
     const res = await fetch(`${process.env.API_URL}/property/${propertyId}`)
     const payload : IApiResponse<GetSinglePropertyResponse> = await res.json()
+
+
 
     return payload
 }
