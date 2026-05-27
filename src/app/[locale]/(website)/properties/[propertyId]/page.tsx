@@ -1,3 +1,5 @@
+import { PropertyGallery } from '@/features/properties/_components/PropertyGallery'
+import PropertyMapModal from '@/features/properties/_components/PropertyMapModal'
 import { getSinglePropertyApi } from '@/features/properties/apis/properties.api'
 import { Button, buttonVariants } from '@/shared/components/ui/button'
 import { Card, CardContent } from '@/shared/components/ui/card'
@@ -5,17 +7,17 @@ import { Separator } from '@/shared/components/ui/separator'
 import { cn } from '@/shared/lib/utils'
 import { Bath, BedDouble, Castle, HousePlusIcon, MessageCircle, Phone, RulerDimensionLine, Shield } from 'lucide-react'
 import Link from 'next/link'
-import React from 'react'
 
 const PropertyPage = async ({ params }: { params: Promise<{ propertyId: string }> }) => {
     const { propertyId } = await params
+    console.log(propertyId)
 
     const propertyData = await getSinglePropertyApi(propertyId)
 
     if (!propertyData.success) {
         return <p>{propertyData.message ?? "حدث خطأ"}</p>
     }
-    const property = propertyData.data
+    const property = propertyData.data.property
 
     const adreesLocationOnMap = `${property.location.street} , ${property.location.city} , ${property.location.governorate} `
 
@@ -24,11 +26,13 @@ const PropertyPage = async ({ params }: { params: Promise<{ propertyId: string }
         return input.toString().replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[parseInt(d)]);
     }
 
+    console.log(property)
+
     return (
         <section className='mt-8'>
             <div className="max-w-7xl mx-auto px-4">
 
-                {/* <PropertyGallery images={property.images} /> */}
+                <PropertyGallery images={property.images} />
 
                 <div className=' grid grid-cols-1  md:grid-cols-3  mt-8'>
                     <div className='p-4 flex-1  col-span-2'>
@@ -124,7 +128,7 @@ const PropertyPage = async ({ params }: { params: Promise<{ propertyId: string }
                             </div>
                         </div>
 
-                        {/* <PropertyMapModal address={adreesLocationOnMap} coordinates={property.location.coordinates || { lat: 0, lng: 0 }} /> */}
+                        <PropertyMapModal address={adreesLocationOnMap} coordinates={property.location.coordinates || { lat: 0, lng: 0 }} />
                         <Separator className='!h-[0.75px] my-6' />
 
                         <div className="py-4">

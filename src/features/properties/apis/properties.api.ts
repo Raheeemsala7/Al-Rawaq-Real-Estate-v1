@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server"
-import { Property } from "../types/property"
+import { GetSinglePropertyResponse, Property } from "../types/property"
 import { getToken } from "next-auth/jwt"
 import { HEADERS } from "@/shared/constant/api.constant"
 import { IApiResponse, IPagination } from "@/shared/lib/types/api"
@@ -93,9 +93,8 @@ export const getFeatureProperties = async () => {
 }
 
 export const getSinglePropertyApi = async (propertyId : string) => {
-
-    const res = await fetch(`${process.env.API_URI}/property/${propertyId}`)
-    const payload : IApiResponse<Property> = await res.json()
+    const res = await fetch(`${process.env.API_URL}/property/${propertyId}`)
+    const payload : IApiResponse<GetSinglePropertyResponse> = await res.json()
 
     return payload
 }
