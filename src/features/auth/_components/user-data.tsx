@@ -32,7 +32,7 @@ export default async function UserData() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
-                <div className="flex items-center">
+                <div className="flex items-center gap-2">
                     <Avatar className="h-8 w-fit rounded-lg ">
                         <AvatarImage src={session?.user.name ?? ` `} alt={session?.user.name} />
                         <AvatarFallback className="size-8 rounded-full">
