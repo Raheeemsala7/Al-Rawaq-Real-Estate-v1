@@ -71,14 +71,10 @@ export const getAdminAllProperties = async ({ req }: { req: NextRequest }) => {
 
 
 
-export const getFeatureProperties = async () => {
-
-    const token = await getNextAuthToken()
-    if (!token?.token) return RESPONSES.unauthorized
-    
+export const getFeatureProperties = async () => {    
     const res = await fetch(`${process.env.API_URL}/property/featured` , {
         headers : {
-            ...HEADERS.authorize(token.token)
+            ...HEADERS.JsonBody,
         }
     })
 

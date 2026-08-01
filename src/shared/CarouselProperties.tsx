@@ -2,8 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 import { ArrowLeftIcon } from 'lucide-react'
 import PropertyCard from '@/features/properties/_components/property-card'
-import { getFeatureProperties } from '@/features/properties/apis/properties.api'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './components/ui/carousel'
+import { getFeatureProperties } from '@/features/properties/apis/properties.api'
 
 
 
@@ -11,11 +11,10 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 const CarouselProperties = async () => {
 
     const properties = await getFeatureProperties()
+    console.log(properties)
     if (!properties.success) {
         return <p>حدث خطأ فني</p>
     }
-
-    console.log(properties.data.length)
 
     return (
         <Carousel

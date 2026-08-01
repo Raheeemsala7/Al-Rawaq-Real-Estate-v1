@@ -3,5 +3,9 @@
         "Infinte",
         "sucessfully",
         "Transtion"
+    ],
+    "i18n-ally.localesPaths": [
+        "src/i18n",
+        "src/messages"
     ]
 }
