@@ -10,6 +10,7 @@ import ServicesSec from "@/shared/components/ServicesSec";
 import ConsultationSec from "@/shared/components/ConsultationSec";
 import ShapeIogo from "../../../../public/assets/icons/ShapeIogo";
 import { Link } from "@/i18n/navigation";
+import ReviewsSec from "@/shared/components/ReviewsSec";
 
 export default async function Home() {
   const t = await getTranslations()
@@ -44,6 +45,7 @@ export default async function Home() {
       </section>
       <FeatureProperties />
       <ServicesSec />
+      <ReviewsSec />
       <section className='py-20 bg-contact h-[60vh] relative'>
         <div className="max-w-7xl relative h-full mx-auto px-4">
           <div className="flex items-center justify-center flex-col gap-5">
