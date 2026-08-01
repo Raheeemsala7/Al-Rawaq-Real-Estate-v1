@@ -10,14 +10,59 @@
     },
     "hero": {
         "title": "Al-Rawaq Real Estate - Your permanent partner in all real estate services.",
-        "cta": "Talk to Us"
+        "cta": "Talk to Us",
+        "contactSection": {
+            "title": "Contact us today and book a consultation with one of our specialists.",
+            "button": "Book a Consultation"
+        }
     },
-     "featureProperties": {
-    "section": "Properties",
-    "title": "Available Properties",
-    "subtitle": "For Sale & Rent",
-    "propertiesAvailable": "View All Properties Available"
-  },
+    "featureProperties": {
+        "section": "Properties",
+        "title": "Available Properties",
+        "subtitle": "For Sale & Rent",
+        "propertiesAvailable": "View All Properties Available"
+    },
+    "services": {
+        "experts": "More than 15 Experts",
+        "title": "The Best Real Estate Services",
+        "titleHighlight": "Don't Hesitate, Let Us Help You!",
+        "description": "From buying and selling to renting and property management, Al-Riwaq Real Estate is your trusted partner for everything related to real estate. With local expertise and dedicated support every step of the way, contact us today and let us guide your real estate journey.",
+        "consultants": "All Consultants",
+        "ctaTitle": "Because Your Time Matters,",
+        "ctaSubtitle": "Don't Waste a Single Minute.",
+        "moreThan": "More than",
+        "consultations": "Consultations",
+        "consultationDescription": "Professional consultations help reduce the time spent on real estate procedures."
+    },
+    "reviews": {
+        "experts": "More than 15 Experts",
+        "title": "What Our Clients Say,",
+        "titleHighlight": "Reflects Our Professionalism.",
+        "button": "All Consultants",
+        "items": [
+            {
+                "id": 1,
+                "name": "Waseem Yasser",
+                "description": "My experience with Al-Riwaq Real Estate was exceptional from start to finish. The team carefully listened to my needs and provided excellent options without pressure.",
+                "jobTitle": "Property Owner",
+                "image": "/assets/imgs/photo-1.jpg"
+            },
+            {
+                "id": 2,
+                "name": "Dr. Ahmed Kamel",
+                "description": "The team was highly professional and helped me choose the right property with complete transparency throughout the process.",
+                "jobTitle": "Property Owner",
+                "image": "/assets/imgs/photo-2.jpg"
+            },
+            {
+                "id": 3,
+                "name": "Karim Abdullah",
+                "description": "I highly recommend Al-Riwaq Real Estate for their honesty, professionalism, and smooth property purchasing experience.",
+                "jobTitle": "Property Owner",
+                "image": "/assets/imgs/photo-3.jpg"
+            }
+        ]
+    },
     "stats": {
         "badge": "Our Achievements",
         "title": "Al-Rawaq Company,",
@@ -26,13 +71,6 @@
         "rating": "Average client ratings",
         "clients": "Satisfied clients",
         "growth": "Investment growth"
-    },
-    "services": {
-        "badge": "Our Services",
-        "title": "Professional Services",
-        "subtitle": "From experts and specialists.",
-        "service_title": "Real Estate Buying and Selling",
-        "service_description": "Comprehensive real estate buying and selling services with guaranteed best prices and distinguished services"
     },
     "consultants": {
         "badge": "Consultants Team",
@@ -65,5 +103,42 @@
         "loading": "Loading...",
         "phone": "+967 55 66 322",
         "company_name": "Al-Rawaq"
+    },
+    "consultation": {
+        "title": "Let Our Experts Help You!",
+        "button": "All Consultants",
+        "description": "From buying and selling to renting and property management, Al-Riwaq Real Estate is your trusted partner for everything related to real estate, offering local expertise and support every step of the way."
+    },
+    "footer": {
+        "servicesTitle": "Our Services",
+        "linksTitle": "Important Links",
+        "contactTitle": "Contact Us",
+        "backToTop": "Back to Top",
+        "copyright": "Al-Riwaq Real Estate 2025 - All Rights Reserved",
+        "services": [
+            "Real Estate Brokerage",
+            "Property Management",
+            "Digital Services & Maintenance",
+            "Real Estate Consulting",
+            "Construction Services",
+            "Property Rental",
+            "Sales & Agency"
+        ],
+        "links": [
+            "Home",
+            "About Us",
+            "Services",
+            "Consultations",
+            "Our Consultants",
+            "Privacy Policy",
+            "Contact Us"
+        ],
+        "contacts": [
+            "Al Dammam Square 169, Doha, Qatar",
+            "+967 859 66 55",
+            "+967 859 446 9",
+            "support@agency.com",
+            "WhatsApp: +967 885 967 226"
+        ]
     }
 }

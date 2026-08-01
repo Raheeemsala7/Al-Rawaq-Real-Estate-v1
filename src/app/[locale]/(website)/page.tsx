@@ -45,15 +45,21 @@ export default async function Home() {
       <FeatureProperties />
       <ServicesSec />
       <ReviewsSec />
-      <section className='py-20 bg-contact h-[60vh] relative'>
-        <div className="max-w-7xl relative h-full mx-auto px-4">
-          <div className="flex items-center justify-center flex-col gap-5">
+      <section className="relative h-[60vh] bg-contact py-20">
+        <div className="relative mx-auto flex h-full max-w-7xl items-center justify-center px-4">
+          <div className="flex flex-col items-center justify-center gap-5">
             <ShapeIogo className="stroke-white" />
-            <h6 className="text-5xl text-center leading-14 text-white max-w-xl">اتصل بنا اليوم واحجز استشارة
-              مع أحد مختصينا.</h6>
-            <Link href={"/contact"} className='w-fit flex gap-3 items-center py-4 px-8 rounded-full bg-gradient-to-b from-[#A89989] to-[#7D6D5E] text-white'>
-              <span>احجز استشارة</span>
-              <ArrowLeft className='size-4' />
+
+            <h6 className="max-w-xl text-center text-5xl leading-14 text-white">
+              {t("contactSection.title")}
+            </h6>
+
+            <Link
+              href="/contact"
+              className="flex w-fit items-center gap-3 rounded-full bg-gradient-to-b from-[#A89989] to-[#7D6D5E] px-8 py-4 text-white"
+            >
+              <span>{t("contactSection.button")}</span>
+              <ArrowLeft className="size-4" />
             </Link>
           </div>
         </div>
