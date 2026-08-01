@@ -128,3 +128,10 @@
     @apply font-sans;
   }
 }
+
+.bg-services {
+  background: url("../../public/assets/imgs/bg-services.jpg") center / cover no-repeat;
+}
+.bg-contact {
+  background: url("/assets/imgs/bg-contact.png") center / cover no-repeat;
+}

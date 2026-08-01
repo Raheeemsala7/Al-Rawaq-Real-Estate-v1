@@ -6,6 +6,10 @@ import { fadeInUp } from "@/shared/lib/constant/anmation";
 import FeatureProperties from "@/shared/components/feature-properties";
 import Animated from "@/shared/components/Animated";
 import { getTranslations } from "next-intl/server";
+import ServicesSec from "@/shared/components/ServicesSec";
+import ConsultationSec from "@/shared/components/ConsultationSec";
+import ShapeIogo from "../../../../public/assets/icons/ShapeIogo";
+import { Link } from "@/i18n/navigation";
 
 export default async function Home() {
   const t = await getTranslations()
@@ -39,6 +43,21 @@ export default async function Home() {
         </div>
       </section>
       <FeatureProperties />
+      <ServicesSec />
+      <section className='py-20 bg-contact h-[60vh] relative'>
+        <div className="max-w-7xl relative h-full mx-auto px-4">
+          <div className="flex items-center justify-center flex-col gap-5">
+            <ShapeIogo className="stroke-white" />
+            <h6 className="text-5xl text-center leading-14 text-white max-w-xl">اتصل بنا اليوم واحجز استشارة
+              مع أحد مختصينا.</h6>
+            <Link href={"/contact"} className='w-fit flex gap-3 items-center py-4 px-8 rounded-full bg-gradient-to-b from-[#A89989] to-[#7D6D5E] text-white'>
+              <span>احجز استشارة</span>
+              <ArrowLeft className='size-4' />
+            </Link>
+          </div>
+        </div>
+      </section>
+      <ConsultationSec />
     </main>
   );
 }
