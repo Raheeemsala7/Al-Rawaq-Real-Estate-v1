@@ -1,15 +1,16 @@
-import React from 'react'
 import Link from 'next/link'
 import { ArrowLeftIcon } from 'lucide-react'
 import PropertyCard from '@/features/properties/_components/property-card'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './components/ui/carousel'
 import { getFeatureProperties } from '@/features/properties/apis/properties.api'
+import { getLocale } from 'next-intl/server'
+import { cn } from './lib/utils'
 
 
 
 
-const CarouselProperties = async () => {
-
+const CarouselProperties = async ({ propertiesAvailableText }: { propertiesAvailableText: string }) => {
+    const locale = await getLocale()
     const properties = await getFeatureProperties()
     console.log(properties)
     if (!properties.success) {
@@ -20,8 +21,8 @@ const CarouselProperties = async () => {
         <Carousel
             className="relative w-full flex flex-col  gap-4 rtl:[direction:ltr] mt-16"
             opts={{
-                align: "start",        // يخلي العناصر تبدأ من اليسار
-                slidesToScroll: 1,     // كام عنصر يتحرك مع كل ضغطة
+                slidesToScroll: 1,     // 1 item per slide
+                align: "start",        // Start align items 
             }
             }
         >
@@ -41,8 +42,8 @@ const CarouselProperties = async () => {
                     <CarouselPrevious className="static w-20 h-16 rounded-full border border-[#302D2B] rtl:rotate-180" />
                     <CarouselNext className="static w-20 h-16 rounded-full border border-[#302D2B] rtl:rotate-180" />
                 </div>
-                <Link href={"/properties"} className='p-4 rounded-full text-base border border-[#7D6D5E26] flex items-center gap-4'>
-                    <span>جميع العقارات المتاحة</span>
+                <Link href={"/properties"} className={cn('p-4 rounded-full text-base border border-[#7D6D5E26] flex items-center gap-4', locale === 'en' ? 'flex-row-reverse' : 'flex-row')}>
+                    <span>{propertiesAvailableText}</span>
                     <ArrowLeftIcon className='size-6' />
                 </Link>
             </div>

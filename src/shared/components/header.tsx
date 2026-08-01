@@ -1,10 +1,10 @@
-import Link from 'next/link'
 import Logo from '../../../public/assets/Logo'
 import { LanguageToggle } from './language-toggle'
 import UserData from '@/features/auth/_components/user-data'
 import { getTranslations } from 'next-intl/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/auth'
+import { Link } from '@/i18n/navigation'
 
 const Header = async () => {
     const t = await getTranslations('navigation');
@@ -39,9 +39,9 @@ const Header = async () => {
                     </nav>
                 </div>
 
-                <div >
+                <Link href={"/"} >
                     <Logo />
-                </div>
+                </Link>
 
                 <div className="flex items-center gap-4">
 

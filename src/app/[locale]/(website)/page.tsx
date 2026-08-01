@@ -13,7 +13,7 @@ import { Link } from "@/i18n/navigation";
 import ReviewsSec from "@/shared/components/ReviewsSec";
 
 export default async function Home() {
-  const t = await getTranslations()
+  const t = await getTranslations("hero")
   return (
     <main>
 
@@ -30,12 +30,11 @@ export default async function Home() {
 
         <div className="relative w-full max-w-7xl mx-auto px-4">
           <Animated className="max-w-2xl " {...fadeInUp}>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 ltr:leading-16 rtl:leading-20 text-balance">{t("hero.title")}</h1>
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 ltr:leading-16 rtl:leading-20 text-balance">{t("title")}</h1>
             <Button size="lg" className="bg-gradient-to-b from-[#A89989] to-[#7D6D5E] 
                             text-white py-3 px-8 rounded-lg 
                               transition-all duration-300 ease-in-out hover:brightness-90">
-              {t("hero.cta")}
-
+              {t("cta")}
               <span>
                 <ArrowLeft className="w-4 h-4 ltr:rotate-180" />
               </span>

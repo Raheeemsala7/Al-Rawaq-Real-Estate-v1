@@ -12,6 +12,12 @@
         "title": "Al-Rawaq Real Estate - Your permanent partner in all real estate services.",
         "cta": "Talk to Us"
     },
+     "featureProperties": {
+    "section": "Properties",
+    "title": "Available Properties",
+    "subtitle": "For Sale & Rent",
+    "propertiesAvailable": "View All Properties Available"
+  },
     "stats": {
         "badge": "Our Achievements",
         "title": "Al-Rawaq Company,",
