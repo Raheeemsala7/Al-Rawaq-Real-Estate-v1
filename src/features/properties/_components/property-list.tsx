@@ -1,9 +1,10 @@
 
 import { getAllProperties } from "../apis/properties.api";
+import { ParamsProperties } from "../types/property";
 import PropertyCard from "./property-card";
 
-export async function PropertyList() {
-    const allProperties = await getAllProperties({ limit: 6 })
+export async function PropertyList({ filters }: { filters: ParamsProperties }) {
+    const allProperties = await getAllProperties({ ...filters })
 
     // if (isLoading) return <div className="text-center p-4">جاري التحميل...</div>;
     // if (!data || allProperties.length === 0) return <div className="text-center p-4">لا توجد نتائج مطابقة</div>;

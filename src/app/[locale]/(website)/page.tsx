@@ -1,6 +1,5 @@
-import { Button } from "@/shared/components/ui/button";
+import { buttonVariants } from "@/shared/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { fadeInUp } from "@/shared/lib/constant/anmation";
 import FeatureProperties from "@/shared/components/feature-properties";
@@ -11,6 +10,7 @@ import ConsultationSec from "@/shared/components/ConsultationSec";
 import ShapeIogo from "../../../../public/assets/icons/ShapeIogo";
 import { Link } from "@/i18n/navigation";
 import ReviewsSec from "@/shared/components/ReviewsSec";
+import { cn } from "@/shared/lib/utils";
 
 export default async function Home() {
   const t = await getTranslations("hero")
@@ -31,14 +31,14 @@ export default async function Home() {
         <div className="relative w-full max-w-7xl mx-auto px-4">
           <Animated className="max-w-2xl " {...fadeInUp}>
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 ltr:leading-16 rtl:leading-20 text-balance">{t("title")}</h1>
-            <Button size="lg" className="bg-gradient-to-b from-[#A89989] to-[#7D6D5E] 
+            <Link href="/properties" className={cn(buttonVariants() ,`bg-gradient-to-b from-[#A89989] to-[#7D6D5E] 
                             text-white py-3 px-8 rounded-lg 
-                              transition-all duration-300 ease-in-out hover:brightness-90">
+                              transition-all duration-300 ease-in-out hover:brightness-90`)}>
               {t("cta")}
               <span>
                 <ArrowLeft className="w-4 h-4 ltr:rotate-180" />
               </span>
-            </Button>
+            </Link>
           </Animated>
         </div>
       </section>

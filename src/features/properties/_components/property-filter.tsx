@@ -4,17 +4,17 @@ import { Button } from "@/shared/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/components/ui/select";
 import SearchBox from "./search-box";
 import { useRouter, useSearchParams } from "next/navigation";
+import { ParamsProperties } from "../types/property";
 
 
-const PropertyFilter = () => {
+const PropertyFilter = ({ filters }: { filters: ParamsProperties }) => {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    // القيم الحالية من الـ URL
-    const purpose = searchParams.get("purpose") || "";
-    const type = searchParams.get("type") || "";
-    const rooms = searchParams.get("rooms") || "";
-    const price = searchParams.get("price") || "";
+    const purpose = filters.purpose || "";
+    const type = filters.type || "";
+    // const rooms = filters.rooms || "";
+    // const price = filters.price || "";
 
     const updateFilter = (key: string, value: string) => {
 
