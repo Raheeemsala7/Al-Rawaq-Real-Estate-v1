@@ -77,3 +77,13 @@ export interface GetSinglePropertyResponse {
     property: Property
     relatedProperties: Property[]
 }
+
+export interface ParamsProperties {
+    purpose?: string;
+    type?: string;
+    minPrice?: string;
+    maxPrice?: string;
+    location?: string;
+    search?: string;
+    limit?: number;
+}

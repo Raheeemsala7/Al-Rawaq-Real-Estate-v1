@@ -1,30 +1,22 @@
 import { NextRequest } from "next/server"
-import { GetSinglePropertyResponse, Property } from "../types/property"
+import { GetSinglePropertyResponse, ParamsProperties, Property } from "../types/property"
 import { getToken } from "next-auth/jwt"
 import { HEADERS } from "@/shared/constant/api.constant"
 import { IApiResponse, IPagination } from "@/shared/lib/types/api"
 import { RESPONSES } from "@/shared/constant/api.responses"
 import { getNextAuthToken } from "@/shared/lib/auth.util"
 
-export const getAllProperties = async ({ req }: { req: NextRequest }) => {
 
-    const token = await getToken({ req })
+export const getAllProperties = async ( params: ParamsProperties ) => {
 
-    const searchParams = req.nextUrl.searchParams
-    const query = new URLSearchParams()
-    searchParams.forEach((value, key) => {
-        if (value) {
-            query.set(key, value)
+    const searchParams = new URLSearchParams();
+    Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+            searchParams.append(key, String(value));
         }
     })
-    query.set("limit" , "6")
 
-    const res = await fetch(`${process.env.API_URL}/property?${query.toString()}`, {
-        headers: {
-            ...HEADERS.authorize(token?.token || "")
-        }
-    }
-    )
+    const res = await fetch(`${process.env.API_URL}/property?${searchParams.toString()}`)
 
     const data: IPagination<Property> = await res.json()
     if (!data.success) {
@@ -53,12 +45,12 @@ export const getAdminAllProperties = async ({ req }: { req: NextRequest }) => {
     }
 
     const res = await fetch(`${process.env.API_URL}/admin/properties?${query.toString()}`, {
-        headers :{
+        headers: {
             ...HEADERS.authorize(token.token)
         }
     })
 
-    const payload : IPagination<Property> = await res.json()
+    const payload: IPagination<Property> = await res.json()
 
     if (!payload.success) {
         return payload
@@ -71,14 +63,14 @@ export const getAdminAllProperties = async ({ req }: { req: NextRequest }) => {
 
 
 
-export const getFeatureProperties = async () => {    
-    const res = await fetch(`${process.env.API_URL}/property/featured` , {
-        headers : {
+export const getFeatureProperties = async () => {
+    const res = await fetch(`${process.env.API_URL}/property/featured`, {
+        headers: {
             ...HEADERS.JsonBody,
         }
     })
 
-    const payload : IApiResponse<Property[]> = await res.json()
+    const payload: IApiResponse<Property[]> = await res.json()
 
     if (!payload.success) {
         return payload
@@ -88,9 +80,9 @@ export const getFeatureProperties = async () => {
 
 }
 
-export const getSinglePropertyApi = async (propertyId : string) => {
+export const getSinglePropertyApi = async (propertyId: string) => {
     const res = await fetch(`${process.env.API_URL}/property/${propertyId}`)
-    const payload : IApiResponse<GetSinglePropertyResponse> = await res.json()
+    const payload: IApiResponse<GetSinglePropertyResponse> = await res.json()
 
 
 
