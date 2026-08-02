@@ -29,9 +29,6 @@ const PropertyPage = async ({ params }: { params: Promise<{ propertyId: string }
         return input.toString().replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[parseInt(d)]);
     }
 
-    console.log(relatedProperties.length)
-    console.log(propertyData)
-
     return (
         <section className='mt-8'>
             <div className="max-w-7xl mx-auto px-4">

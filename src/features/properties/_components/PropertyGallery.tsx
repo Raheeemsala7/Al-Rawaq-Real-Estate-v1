@@ -32,12 +32,9 @@ export const PropertyGallery = ({ images }: PropertyGalleryProps) => {
         setIsModalOpen(true);
     };
 
-    console.log("IIIIIII", images)
 
     return (
         <div className="relative w-full">
-
-
             <div className="grid grid-cols-3 grid-rows-2 gap-2 h-[36rem]">
                 <div className="relative col-span-2 row-span-2 size-full" >
                     <Image
