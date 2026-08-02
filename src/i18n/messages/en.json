@@ -140,5 +140,25 @@
             "support@agency.com",
             "WhatsApp: +967 885 967 226"
         ]
+    },
+    "properties": {
+        "filters": {
+            "all": "All",
+            "purpose": "Purpose",
+            "type": "Property Type",
+            "search": "Search",
+            "purposeOptions": {
+                "sale": "For Sale",
+                "rent": "For Rent"
+            },
+            "typeOptions": {
+                "apartment": "Apartment",
+                "villa": "Villa",
+                "house": "House",
+                "land": "Land",
+                "office": "Office",
+                "store": "Store"
+            }
+        }
     }
 }

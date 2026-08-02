@@ -1,112 +1,128 @@
-"use client"
-
-import { Button } from "@/shared/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/components/ui/select";
-import SearchBox from "./search-box";
+"use client";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
+
+import SearchBox from "./search-box";
+import { Button } from "@/shared/components/ui/button";
+import {
+    Menubar,
+    MenubarContent,
+    MenubarItem,
+    MenubarMenu,
+    MenubarTrigger,
+} from "@/shared/components/ui/menubar";
+
 import { ParamsProperties } from "../types/property";
 
+interface PropertyFilterProps {
+    filters: ParamsProperties;
+}
 
-const PropertyFilter = ({ filters }: { filters: ParamsProperties }) => {
+const propertyTypes = [
+    "apartment",
+    "villa",
+    "house",
+    "land",
+    "office",
+    "store",
+] as const;
+
+const PropertyFilter = ({ filters }: PropertyFilterProps) => {
+    const t = useTranslations("properties.filters");
+
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    const purpose = filters.purpose || "";
-    const type = filters.type || "";
-    // const rooms = filters.rooms || "";
-    // const price = filters.price || "";
+    const purpose = filters.purpose ?? "";
+    const type = filters.type ?? "";
 
-    const updateFilter = (key: string, value: string) => {
-
+    const updateFilter = (
+        key: keyof Pick<ParamsProperties, "purpose" | "type">,
+        value: string
+    ) => {
         const params = new URLSearchParams(searchParams.toString());
 
-        console.log(key, value)
+        if (value) {
+            params.set(key, value);
+        } else {
+            params.delete(key);
+        }
 
-        params.set(key, value);
-
-        router.push(`?${params.toString()}`);
+        router.replace(`?${params.toString()}`, {
+            scroll: false,
+        });
     };
 
-
-
     return (
-        <div className="flex items-center relative max-w-7xl mx-auto p-4">
-            <div className='flex-1 w-full me-4'>
+        <div className="flex items-center max-w-7xl mx-auto gap-4 p-4">
+            <div className="flex-1">
                 <SearchBox />
             </div>
 
-            <div className='flex items-center gap-4'>
+            <div className="flex items-center gap-3">
                 {/* Purpose */}
-                <Select
-                    value={purpose}
-                    onValueChange={(value) =>
-                        updateFilter("purpose", value ?? "")
-                    }
-                >
-                    <SelectTrigger className='flex rtl:flex-row-reverse'>
-                        <SelectValue placeholder="الغرض" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="sale">للبيع</SelectItem>
-                        <SelectItem value="rent">للإيجار</SelectItem>
-                    </SelectContent>
-                </Select>
+                <Menubar>
+                    <MenubarMenu>
+                        <MenubarTrigger className="min-w-32 justify-center">
+                            {purpose
+                                ? t(`purposeOptions.${purpose}`)
+                                : t("purpose")}
+                        </MenubarTrigger>
+
+                        <MenubarContent align="center">
+                            <MenubarItem
+                                onClick={() => updateFilter("purpose", "")}
+                            >
+                                {t("all")}
+                            </MenubarItem>
+
+                            <MenubarItem
+                                onClick={() => updateFilter("purpose", "sale")}
+                            >
+                                {t("purposeOptions.sale")}
+                            </MenubarItem>
+
+                            <MenubarItem
+                                onClick={() => updateFilter("purpose", "rent")}
+                            >
+                                {t("purposeOptions.rent")}
+                            </MenubarItem>
+                        </MenubarContent>
+                    </MenubarMenu>
+                </Menubar>
 
                 {/* Type */}
-                <Select
-                    value={type}
-                    onValueChange={(value) =>
-                        updateFilter("type", value ?? "")
-                    }
-                >
-                    <SelectTrigger className='flex rtl:flex-row-reverse' >
-                        <SelectValue placeholder="نوع العقار" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="apartment">شقة</SelectItem>
-                        <SelectItem value="villa">فيلا</SelectItem>
-                        <SelectItem value="house">منزل</SelectItem>
-                        <SelectItem value="land">أرض</SelectItem>
-                        <SelectItem value="office">مكتب</SelectItem>
-                        <SelectItem value="store">محل تجاري</SelectItem>
-                    </SelectContent>
-                </Select>
+                <Menubar>
+                    <MenubarMenu>
+                        <MenubarTrigger className="min-w-36 justify-center">
+                            {type
+                                ? t(`typeOptions.${type}`)
+                                : t("type")}
+                        </MenubarTrigger>
 
-                {/* Rooms */}
-                <Select >
-                    <SelectTrigger className='flex rtl:flex-row-reverse' >
-                        <SelectValue placeholder="غرف وحمامات" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="1">1+</SelectItem>
-                        <SelectItem value="2">2+</SelectItem>
-                        <SelectItem value="3">3+</SelectItem>
-                        <SelectItem value="4">4+</SelectItem>
-                    </SelectContent>
-                </Select>
+                        <MenubarContent align="center">
+                            <MenubarItem
+                                onClick={() => updateFilter("type", "")}
+                            >
+                                {t("all")}
+                            </MenubarItem>
 
-                {/* Price */}
-                <Select>
-                    <SelectTrigger className='flex rtl:flex-row-reverse' >
-                        <SelectValue placeholder="السعر" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="0-500000">أقل من 500 ألف</SelectItem>
-                        <SelectItem value="500000-1000000">من 500 ألف إلى مليون</SelectItem>
-                        <SelectItem value="1000000-2000000">من مليون إلى 2 مليون</SelectItem>
-                        <SelectItem value="2000000+">أكثر من 2 مليون</SelectItem>
-                    </SelectContent>
-                </Select>
-                {/* Price */}
-                {/* <PriceRangeSelect /> */}
+                            {propertyTypes.map((item) => (
+                                <MenubarItem
+                                    key={item}
+                                    onClick={() => updateFilter("type", item)}
+                                >
+                                    {t(`typeOptions.${item}`)}
+                                </MenubarItem>
+                            ))}
+                        </MenubarContent>
+                    </MenubarMenu>
+                </Menubar>
 
-                {/* Search Button (اختياري، يمكن حذفه إذا تريد request مباشرة عند تغيير Select) */}
-                <Button className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-2xl">
-                    ابحث
+                <Button className="bg-red-500 hover:bg-red-600 text-white rounded-xl px-8">
+                    {t("search")}
                 </Button>
             </div>
-
-
         </div>
     );
 };
