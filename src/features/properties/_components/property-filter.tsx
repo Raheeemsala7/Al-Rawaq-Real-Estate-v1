@@ -2,7 +2,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 
-import SearchBox from "./search-box";
+import SearchBox from "./search/search-box";
 import { Button } from "@/shared/components/ui/button";
 import {
     Menubar,
@@ -56,14 +56,14 @@ const PropertyFilter = ({ filters }: PropertyFilterProps) => {
     return (
         <div className="flex items-center max-w-7xl mx-auto gap-4 p-4">
             <div className="flex-1">
-                <SearchBox />
+                <SearchBox location={filters.location ??""} />
             </div>
 
             <div className="flex items-center gap-3">
                 {/* Purpose */}
                 <Menubar>
                     <MenubarMenu>
-                        <MenubarTrigger className="min-w-32 justify-center">
+                        <MenubarTrigger className="min-w-24 justify-center">
                             {purpose
                                 ? t(`purposeOptions.${purpose}`)
                                 : t("purpose")}
@@ -94,7 +94,7 @@ const PropertyFilter = ({ filters }: PropertyFilterProps) => {
                 {/* Type */}
                 <Menubar>
                     <MenubarMenu>
-                        <MenubarTrigger className="min-w-36 justify-center">
+                        <MenubarTrigger className="min-w-24 justify-center">
                             {type
                                 ? t(`typeOptions.${type}`)
                                 : t("type")}
