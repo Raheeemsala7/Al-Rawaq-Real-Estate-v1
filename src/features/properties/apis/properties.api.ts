@@ -4,11 +4,9 @@ import { getToken } from "next-auth/jwt"
 import { HEADERS } from "@/shared/constant/api.constant"
 import { IApiResponse, IPagination } from "@/shared/lib/types/api"
 import { RESPONSES } from "@/shared/constant/api.responses"
-import { getNextAuthToken } from "@/shared/lib/auth.util"
 
 
 export const getAllProperties = async ( params: ParamsProperties ) => {
-
     const searchParams = new URLSearchParams();
     Object.entries(params).forEach(([key, value]) => {
         if (value !== undefined && value !== null) {
