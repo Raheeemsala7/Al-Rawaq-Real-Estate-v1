@@ -8,7 +8,7 @@ declare type IErrorResponse = {
     success: false
     code: number;
     message?: string;
-    errors?: Array<{
+    error?: Array<{
         path: string;
         message: string;
     }>

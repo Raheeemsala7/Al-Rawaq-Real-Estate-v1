@@ -49,9 +49,8 @@ export const createPropertyAction = async (data: CreatePropertyFormData) => {
         body: formData
     })
     const payload: IApiResponse<{ property: Property }> = await res.json()
-
     if (!payload.success) {
-        return payload
+        throw new Error(payload.error ? payload.error?.[0].message || "Something went wrong" : payload.message)
     }
     return payload
 }

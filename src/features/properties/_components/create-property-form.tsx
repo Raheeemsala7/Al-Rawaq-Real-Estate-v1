@@ -36,7 +36,7 @@ const CreatePropertyForm = () => {
     const form = useForm<CreatePropertyFormData>({
         resolver: zodResolver(createPropertySchema),
         defaultValues: {
-            title:"شقة للإيجار في البنفسج عمارات – التجمع الخامس",
+            title: "شقة للإيجار في البنفسج عمارات – التجمع الخامس",
             description: "",
             price: 455,
             pricePerMeter: 455,
@@ -74,10 +74,20 @@ const CreatePropertyForm = () => {
 
     const onSubmit = async (data: CreatePropertyFormData) => {
         startTransition(async () => {
-            await mutateAsync(data)
-            toast.success("Done sucessfully create property")
-            // form.reset()
-            // router.push("/dashboard/properties")
+            try {
+                await mutateAsync(data)
+
+                toast.success("Done successfully create property")
+                form.reset()
+                router.push("/dashboard/properties")
+            } catch (error) {
+                const message =
+                    error instanceof Error
+                        ? error.message
+                        : "Something went wrong"
+
+                toast.error(message)
+            }
         })
     }
 
