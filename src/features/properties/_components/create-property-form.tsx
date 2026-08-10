@@ -37,7 +37,7 @@ const CreatePropertyForm = () => {
     const form = useForm<CreatePropertyFormData>({
         resolver: zodResolver(createPropertySchema),
         defaultValues: {
-            title: "شقة للإيجار في البنفسج عمارات – التجمع الخامس",
+            title: "",
             description: "",
             price: 455,
             pricePerMeter: 455,

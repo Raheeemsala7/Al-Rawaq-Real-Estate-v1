@@ -15,12 +15,9 @@ const Header = async () => {
             className="bg-background border-b border-border"
         >
             <div className="w-full max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-
-
-
                 <div className="flex items-center gap-8">
                     <nav className="hidden md:flex items-center gap-6">
-                        <Link href="#" className="text-foreground hover:text-primary transition-colors">
+                        <Link href="/" className="text-foreground hover:text-primary transition-colors">
                             {t("home")}
                         </Link>
                         <Link href="/properties" className="text-foreground hover:text-primary transition-colors">
@@ -32,7 +29,7 @@ const Header = async () => {
                         <Link href="#" className="text-foreground hover:text-primary transition-colors">
                             {t("services")}
                         </Link>
-                        <Link href="#" className="text-foreground hover:text-primary transition-colors">
+                        <Link href="/#contact" className="text-foreground hover:text-primary transition-colors">
                             {t("contact")}
                         </Link>
                     </nav>
@@ -44,10 +41,7 @@ const Header = async () => {
 
                 <div className="flex items-center gap-4">
 
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        {/* <Phone className="w-4 h-4" />
-                        <span>{t("common.phone")}</span> */}
- 
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground"> 
                         {session ? (
                             <UserData />
                         ) :
@@ -59,9 +53,6 @@ const Header = async () => {
                     </div>
                     <LanguageToggle />
                 </div>
-
-
-
             </div>
         </header>
     )
