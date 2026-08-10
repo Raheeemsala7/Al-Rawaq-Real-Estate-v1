@@ -40,7 +40,7 @@ export const useCreatePropertyMutation = () => {
         mutationFn: createPropertyAction,
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: ["properties", "admin-properties"],
+                queryKey: ["admin-properties"],
             })
         }
     })
@@ -51,7 +51,7 @@ export const useDeletePropertyMutation = () => {
         mutationFn: deletePropertyAction,
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: ["properties" ,"admin-properties" ],
+                queryKey: ["admin-properties",1,""],
             })
         }
     })

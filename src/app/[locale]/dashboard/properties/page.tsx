@@ -30,10 +30,7 @@ const AdminPageProperties = () => {
                         </Link>
                     </div>
                 </div>
-
                 <AdminPropertiesTable />
-
-
             </div>
         </div>
     )
