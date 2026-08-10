@@ -77,7 +77,6 @@ const AdminPropertiesTable = () => {
     }
 
     const properties = data.data || [];
-    console.log(properties)
 
     // Filter properties based on search and filters
     const filteredProperties = properties.filter((property: Property) => {
@@ -95,13 +94,17 @@ const AdminPropertiesTable = () => {
     const handleDelete = (propertyId: string) => {
         console.log(propertyId)
         startTranstion(async () => {
-            const payload = await deleteProperty(propertyId)
-            if (payload.success) {
-                toast.success(payload.message)
+            try {
+                await deleteProperty(propertyId)
+                toast.success("Property deleted successfully")
                 setDeleteDialogOpen(false)
-                return
+            } catch (error) {
+                const message =
+                    error instanceof Error
+                        ? error.message
+                        : "Something went wrong"
+                toast.error(message)
             }
-            toast.error(payload.message)
 
         })
     };

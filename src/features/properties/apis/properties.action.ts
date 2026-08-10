@@ -67,6 +67,9 @@ export const deletePropertyAction = async (id: string) => {
         },
     })
     const payload :IApiResponse<null> = await res.json()
+    if (!payload.success) {
+        throw new Error( payload.message|| "Something went wrong" )
+    }
 
     return payload
 }
