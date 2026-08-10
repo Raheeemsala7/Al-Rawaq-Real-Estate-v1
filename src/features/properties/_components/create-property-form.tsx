@@ -1,4 +1,5 @@
 "use client"
+import "leaflet/dist/leaflet.css";
 import { Controller, useForm } from 'react-hook-form'
 import { CreatePropertyFormData } from '../types/property'
 import { zodResolver } from '@hookform/resolvers/zod'

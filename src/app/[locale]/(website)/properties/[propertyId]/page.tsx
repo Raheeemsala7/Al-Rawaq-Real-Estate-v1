@@ -1,3 +1,5 @@
+import "leaflet/dist/leaflet.css";
+
 import PricePerformanceSection from '@/features/properties/_components/price-performance-section'
 import { PropertyGallery } from '@/features/properties/_components/PropertyGallery'
 import PropertyMapModal from '@/features/properties/_components/PropertyMapModal'
@@ -12,7 +14,6 @@ import Link from 'next/link'
 
 const PropertyPage = async ({ params }: { params: Promise<{ propertyId: string }> }) => {
     const { propertyId } = await params
-    console.log(propertyId)
 
     const propertyData = await getSinglePropertyApi(propertyId)
 

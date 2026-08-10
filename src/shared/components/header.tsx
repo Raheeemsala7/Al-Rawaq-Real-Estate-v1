@@ -9,7 +9,6 @@ import { Link } from '@/i18n/navigation'
 const Header = async () => {
     const t = await getTranslations('navigation');
     const session = await getServerSession(authOptions)
-    console.log(session)
 
     return (
         <header

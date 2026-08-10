@@ -1,7 +1,10 @@
+import { routing } from "@/i18n/routing";
 import { Providers } from "@/shared/context/global/providers";
 import { cn } from "@/shared/lib/utils";
-import { getMessages } from "next-intl/server";
-import { Geist, Geist_Mono, Inter ,IBM_Plex_Sans_Arabic } from "next/font/google";
+import { hasLocale } from "next-intl";
+import { getMessages, setRequestLocale } from "next-intl/server";
+import { Geist, Geist_Mono, Inter, IBM_Plex_Sans_Arabic } from "next/font/google";
+import { notFound } from "next/navigation";
 
 const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
   subsets: ["arabic"],
@@ -23,6 +26,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 export default async function LocaleLayout({
   children,
   params
@@ -32,6 +39,11 @@ export default async function LocaleLayout({
 }) {
 
   const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
+  setRequestLocale(locale);
   const messages = await getMessages();
 
   return (
