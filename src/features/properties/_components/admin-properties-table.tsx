@@ -3,7 +3,7 @@ import { Button } from '@/shared/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card'
 import { Input } from '@/shared/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/components/ui/select'
-import { Bath, Bed, Building2, ChevronLeft, ChevronRight, Eye, ImageIcon, MapPin, Maximize, Pencil, Search, Trash2 } from 'lucide-react'
+import { Bath, Bed, Building2, ChevronLeft, ChevronRight, Eye, ImageIcon, Loader2, MapPin, Maximize, Pencil, Search, Trash2 } from 'lucide-react'
 import React, { useState, useTransition } from 'react'
 import { useDeletePropertyMutation, useGetAdminProperties } from '../hooks/property-hook'
 import { Property } from '../types/property'
@@ -51,6 +51,7 @@ const AdminPropertiesTable = () => {
     const searchParams = useSearchParams()
     const [isPending, startTranstion] = useTransition()
     const [search, setSearch] = useState("");
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const page = searchParams.get("page") || 1
     const [statusFilter, setStatusFilter] = useState<string>("all");
     const [typeFilter, setTypeFilter] = useState<string>("all");
@@ -91,12 +92,13 @@ const AdminPropertiesTable = () => {
         return matchesSearch && matchesStatus && matchesType;
     });
 
-    const handleDelete = (propertyId: string, propertyTitle: string) => {
+    const handleDelete = (propertyId: string) => {
         console.log(propertyId)
         startTranstion(async () => {
             const payload = await deleteProperty(propertyId)
             if (payload.success) {
                 toast.success(payload.message)
+                setDeleteDialogOpen(false)
                 return
             }
             toast.error(payload.message)
@@ -433,9 +435,9 @@ const AdminPropertiesTable = () => {
                                                         <Pencil className="h-4 w-4" />
                                                     </Button>
 
-                                                    {/*  */}
+                                                    {/* Delete Button */}
 
-                                                    <Dialog>
+                                                    <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
                                                         <DialogTrigger>
                                                             <Button
                                                                 variant="destructive"
@@ -458,8 +460,8 @@ const AdminPropertiesTable = () => {
                                                                     <Button variant="outline">الغاء</Button>
                                                                 </DialogClose>
                                                                 <Button
-                                                                    onClick={() => handleDelete(property._id, property.title)}
-                                                                    variant={"destructive"} type="submit">حذف العقار</Button>
+                                                                    onClick={() => handleDelete(property._id)}
+                                                                    variant={"destructive"} type="submit" disabled={isPending}>{isPending ?? <Loader2 className='size-5 animate-spin transition-all' />} حذف العقار</Button>
                                                             </DialogFooter>
                                                         </DialogContent>
                                                     </Dialog>

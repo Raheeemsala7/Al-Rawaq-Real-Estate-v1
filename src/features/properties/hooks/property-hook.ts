@@ -40,7 +40,7 @@ export const useCreatePropertyMutation = () => {
         mutationFn: createPropertyAction,
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: ["properties"],
+                queryKey: ["properties", "admin-properties"],
             })
         }
     })
