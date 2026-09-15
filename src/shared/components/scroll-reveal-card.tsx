@@ -55,7 +55,7 @@ export default function ScrollRevealCard({ property }: ScrollRevealCardProps) {
 
     return (
         // The ref is on the parent so we track when this section enters the viewport
-        <div ref={containerRef} className="pointer-events-none absolute inset-0">
+        <div ref={containerRef} className="pointer-events-none absolute inset-0 hidden md:block">
             <motion.div
                 style={{ y, opacity, scale, rotate }}
                 className={[

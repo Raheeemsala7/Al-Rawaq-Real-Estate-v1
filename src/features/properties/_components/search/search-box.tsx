@@ -63,29 +63,25 @@ const searchParams = useSearchParams();
     }, [debouncedQuery]);
 
     const handleSelect = (location: LocationType) => {
-         const params = new URLSearchParams(searchParams.toString());
+        const params = new URLSearchParams(searchParams.toString());
+        params.set("location", location.governorate);
 
-    params.set("location", location.governorate);
+        router.replace(`?${params.toString()}`, {
+            scroll: false,
+        });
 
-    router.replace(`?${params.toString()}`, {
-        scroll: false,
-    });
-
-    setQuery("");
-    setOpen(false);
+        setLocations([location]);
+        setQuery("");
+        setOpen(false);
     };
 
     const handleRemove = (location: LocationType) => {
-        setLocations((prev) =>
-            prev.filter(
-                (item) =>
-                    !(
-                        item.governorate === location.governorate &&
-                        item.city === location.city &&
-                        item.street === location.street
-                    )
-            )
-        );
+        setLocations([]);
+        const params = new URLSearchParams(searchParams.toString());
+        params.delete("location");
+        router.replace(`?${params.toString()}`, {
+            scroll: false,
+        });
     };
 
     return (

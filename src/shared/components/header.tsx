@@ -5,11 +5,20 @@ import { getTranslations } from 'next-intl/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/auth'
 import { Link } from '@/i18n/navigation'
+import { MobileNav } from './mobile-nav'
 import { ThemeToggle } from './theme-toggle'
 
 const Header = async () => {
     const t = await getTranslations('navigation');
     const session = await getServerSession(authOptions)
+
+    const navLinks = [
+        { href: "/", label: t("home") },
+        { href: "/properties", label: t("properties") },
+        { href: "/about", label: t("about") },
+        { href: "/services", label: t("services") },
+        { href: "/contact", label: t("contact") },
+    ];
 
     return (
         <header
@@ -17,14 +26,9 @@ const Header = async () => {
         >
             <div className="w-full max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
                 <div className="flex items-center gap-8">
+                    <MobileNav links={navLinks} />
                     <nav className="hidden md:flex items-center gap-6">
-                        {[
-                            { href: "/", label: t("home") },
-                            { href: "/properties", label: t("properties") },
-                            { href: "/about", label: t("about") },
-                            { href: "/services", label: t("services") },
-                            { href: "/contact", label: t("contact") },
-                        ].map(({ href, label }) => (
+                        {navLinks.map(({ href, label }) => (
                             <Link
                                 key={label}
                                 href={href}

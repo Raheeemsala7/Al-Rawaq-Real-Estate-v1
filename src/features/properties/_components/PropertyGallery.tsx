@@ -35,8 +35,8 @@ export const PropertyGallery = ({ images }: PropertyGalleryProps) => {
 
     return (
         <div className="relative w-full">
-            <div className="grid grid-cols-3 grid-rows-2 gap-2 h-[36rem]">
-                <div className="relative col-span-2 row-span-2 size-full" >
+            <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-2 h-64 md:h-[36rem]">
+                <div className="relative col-span-1 md:col-span-2 md:row-span-2 size-full" >
                     <Image
                         src={images[0].path}
                         alt=""
@@ -51,7 +51,7 @@ export const PropertyGallery = ({ images }: PropertyGalleryProps) => {
                 </div>
 
                 {images[1] && (
-                    <div className="relative size-full ">
+                    <div className="relative size-full hidden md:block">
                         <Image
                             src={images[1].path}
                             alt=""
@@ -61,8 +61,8 @@ export const PropertyGallery = ({ images }: PropertyGalleryProps) => {
                         />
                     </div>
                 )}
-                {images[1] && (
-                    <div className="relative size-full ">
+                {images[2] && (
+                    <div className="relative size-full hidden md:block">
                         <Image
                             src={images[2].path}
                             alt=""
@@ -77,109 +77,105 @@ export const PropertyGallery = ({ images }: PropertyGalleryProps) => {
 
             {/* Image Modal */}
             <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-                <DialogContent className="max-w-full !w-full h-[95vh] p-0 bg-black/95 border-none" style={{ maxWidth: '100%' }}>
-                    <div className="relative w-full h-full flex flex-col">
-                        {/* Close Button */}
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="absolute top-4 left-4 z-50 text-white hover:bg-white/20 rounded-full"
-                            onClick={() => setIsModalOpen(false)}
-                        >
-                            <X className="h-6 w-6" />
-                        </Button>
+                <DialogContent className="max-w-full w-full h-full sm:h-[95vh] p-0 bg-black/95 border-none flex flex-col" style={{ maxWidth: '100%' }}>
+                    {/* Close Button */}
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="absolute top-4 left-4 z-50 text-white hover:bg-white/20 rounded-full"
+                        onClick={() => setIsModalOpen(false)}
+                    >
+                        <X className="h-6 w-6" />
+                    </Button>
 
-                        {/* Main Image Container */}
-                        <div className="flex-1 flex items-center justify-center p-4 pb-0">
-                            <div className="relative w-full h-full  max-h-[calc(100vh-250px)]">
-                                <img
-                                    src={images[modalIndex]?.path}
-                                    alt={`Property view ${modalIndex + 1}`}
-                                    className="w-full h-full object-contain"
-                                />
+                    {/* Main Image Container */}
+                    <div className="flex-1 relative w-full min-h-0 flex items-center justify-center p-0 sm:p-8 mt-16 sm:mt-0">
+                        <img
+                            src={images[modalIndex]?.path}
+                            alt={`Property view ${modalIndex + 1}`}
+                            className="max-w-full max-h-full object-contain"
+                        />
 
-                                {/* Navigation Arrows */}
-                                {images.length > 1 && (
-                                    <>
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            className="absolute left-4 top-1/2 -translate-y-1/2 text-white bg-white/10 hover:bg-white/20 rounded-full"
-                                            onClick={prevModalImage}
+                        {/* Navigation Arrows */}
+                        {images.length > 1 && (
+                            <>
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 text-white bg-black/40 hover:bg-black/60 rounded-full z-10"
+                                    onClick={prevModalImage}
+                                >
+                                    <ChevronLeft className="h-8 w-8" />
+                                </Button>
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 text-white bg-black/40 hover:bg-black/60 rounded-full z-10"
+                                    onClick={nextModalImage}
+                                >
+                                    <ChevronRight className="h-8 w-8" />
+                                </Button>
+                            </>
+                        )}
+                    </div>
+
+                    {/* Image Counter */}
+                    <div className="text-center py-2 shrink-0">
+                        <span className="text-white text-base sm:text-lg font-medium">
+                            {modalIndex + 1} / {images.length}
+                        </span>
+                    </div>
+
+                    {/* Thumbnails Strip */}
+                    {images.length > 1 && (
+                        <div className="relative bg-black/60 px-4 py-4 shrink-0 pb-8 sm:pb-4">
+                            <div className="flex items-center justify-center gap-3 overflow-x-auto scrollbar-hide max-w-6xl mx-auto">
+                                {/* Left Arrow for Thumbnails */}
+                                {images.length > 8 && (
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="flex-shrink-0 text-white bg-white/10 hover:bg-white/20 rounded-full hidden sm:flex"
+                                        onClick={prevModalImage}
+                                    >
+                                        <ChevronLeft className="h-5 w-5" />
+                                    </Button>
+                                )}
+
+                                {/* Thumbnails */}
+                                <div className="flex gap-2 sm:gap-3 overflow-x-auto scrollbar-hide">
+                                    {images.map((image, index) => (
+                                        <button
+                                            key={index}
+                                            onClick={() => setModalIndex(index)}
+                                            className={`relative flex-shrink-0 w-16 h-12 sm:w-24 sm:h-16 overflow-hidden rounded-lg transition-all ${index === modalIndex
+                                                ? "ring-2 ring-primary ring-offset-1 ring-offset-black opacity-100"
+                                                : "opacity-40 hover:opacity-100"
+                                                }`}
                                         >
-                                            <ChevronLeft className="h-6 w-6" />
-                                        </Button>
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            className="absolute right-4 top-1/2 -translate-y-1/2 text-white bg-white/10 hover:bg-white/20 rounded-full"
-                                            onClick={nextModalImage}
-                                        >
-                                            <ChevronRight className="h-6 w-6" />
-                                        </Button>
-                                    </>
+                                            <img
+                                                src={image.path}
+                                                alt={`Thumbnail ${index + 1}`}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        </button>
+                                    ))}
+                                </div>
+
+                                {/* Right Arrow for Thumbnails */}
+                                {images.length > 8 && (
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="flex-shrink-0 text-white bg-white/10 hover:bg-white/20 rounded-full hidden sm:flex"
+                                        onClick={nextModalImage}
+                                    >
+                                        <ChevronRight className="h-5 w-5" />
+                                    </Button>
                                 )}
                             </div>
                         </div>
-
-                        {/* Image Counter */}
-                        <div className="text-center py-4">
-                            <span className="text-white text-lg font-medium">
-                                {modalIndex + 1}/{images.length}
-                            </span>
-                        </div>
-
-                        {/* Thumbnails Strip */}
-                        {images.length > 1 && (
-                            <div className="relative bg-black/50 px-4 py-6">
-                                <div className="flex items-center justify-center gap-3 overflow-x-auto scrollbar-hide max-w-6xl mx-auto">
-                                    {/* Left Arrow for Thumbnails */}
-                                    {images.length > 8 && (
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            className="flex-shrink-0 text-white bg-white/10 hover:bg-white/20 rounded-full"
-                                            onClick={prevModalImage}
-                                        >
-                                            <ChevronLeft className="h-5 w-5" />
-                                        </Button>
-                                    )}
-
-                                    {/* Thumbnails */}
-                                    <div className="flex gap-3 overflow-x-auto scrollbar-hide">
-                                        {images.map((image, index) => (
-                                            <button
-                                                key={index}
-                                                onClick={() => setModalIndex(index)}
-                                                className={`relative flex-shrink-0 w-24 h-16 overflow-hidden rounded-lg transition-all ${index === modalIndex
-                                                    ? "ring-2 ring-primary ring-offset-2 ring-offset-black opacity-100"
-                                                    : "opacity-50 hover:opacity-80"
-                                                    }`}
-                                            >
-                                                <img
-                                                    src={image.path}
-                                                    alt={`Thumbnail ${index + 1}`}
-                                                    className="w-full h-full object-cover"
-                                                />
-                                            </button>
-                                        ))}
-                                    </div>
-
-                                    {/* Right Arrow for Thumbnails */}
-                                    {images.length > 8 && (
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            className="flex-shrink-0 text-white bg-white/10 hover:bg-white/20 rounded-full"
-                                            onClick={nextModalImage}
-                                        >
-                                            <ChevronRight className="h-5 w-5" />
-                                        </Button>
-                                    )}
-                                </div>
-                            </div>
-                        )}
-                    </div>
+                    )}
                 </DialogContent>
             </Dialog>
         </div>
