@@ -21,9 +21,9 @@ const Header = async () => {
                         {[
                             { href: "/", label: t("home") },
                             { href: "/properties", label: t("properties") },
-                            { href: "#", label: t("about") },
-                            { href: "#", label: t("services") },
-                            { href: "/#contact", label: t("contact") },
+                            { href: "/about", label: t("about") },
+                            { href: "/services", label: t("services") },
+                            { href: "/contact", label: t("contact") },
                         ].map(({ href, label }) => (
                             <Link
                                 key={label}
@@ -69,4 +69,4 @@ const Header = async () => {
     )
 }
 
-export default Header
+export default Header

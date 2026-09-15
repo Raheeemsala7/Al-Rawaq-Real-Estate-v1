@@ -18,18 +18,11 @@ import { ArrowLeft, BedDouble, Bath, MapPin } from "lucide-react"
  * into the Features section. The motion is spring-smoothed to feel physical.
  */
 
+import { Property } from "@/features/properties/types/property";
+
 interface ScrollRevealCardProps {
     /** A real featured property to showcase — passed in from a Server Component */
-    property: {
-        _id: string
-        title: string
-        price: number
-        location: string
-        images: string[]
-        bedrooms?: number
-        bathrooms?: number
-        purpose: "sale" | "rent"
-    }
+    property: Property;
 }
 
 export default function ScrollRevealCard({ property }: ScrollRevealCardProps) {
@@ -78,7 +71,7 @@ export default function ScrollRevealCard({ property }: ScrollRevealCardProps) {
                 {/* Property image */}
                 <div className="relative h-40 w-full overflow-hidden">
                     <Image
-                        src={property.images?.[0] || "/assets/imgs/services-bg.png"}
+                        src={property.images?.[0]?.path || "/assets/imgs/services-bg.png"}
                         alt={property.title}
                         fill
                         className="object-cover transition-transform duration-700 hover:scale-105"
@@ -98,7 +91,7 @@ export default function ScrollRevealCard({ property }: ScrollRevealCardProps) {
 
                     <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                         <MapPin className="h-3.5 w-3.5 shrink-0 text-[#A89989]" />
-                        <span className="line-clamp-1">{property.location}</span>
+                        <span className="line-clamp-1">{property.location.city}, {property.location.governorate}</span>
                     </div>
 
                     {/* Amenities */}

@@ -68,4 +68,4 @@ export async function AppSidebar() {
             </SidebarFooter>
         </Sidebar>
     )
-}
+}
