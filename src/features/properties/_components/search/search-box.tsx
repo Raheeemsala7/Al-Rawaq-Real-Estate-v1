@@ -92,12 +92,12 @@ const searchParams = useSearchParams();
         <div
             ref={ref}
             className={cn(
-                "relative flex-1 rounded-full bg-[#F7F7F7] transition-all",
-                open && "ring-2 ring-[#766DBB]"
+                "relative flex-1 rounded-full bg-muted transition-all border border-border",
+                open && "ring-2 ring-primary"
             )}
         >
             <div className="flex min-h-14 items-center px-4">
-                <Search className="size-5 text-[#766DBB]" />
+                <Search className="size-5 text-primary" />
 
                 {locations.length > 0 && !open && (
                     <div className="mx-3 flex flex-wrap gap-2">
@@ -119,7 +119,7 @@ const searchParams = useSearchParams();
                         setOpen(true);
                     }}
                     placeholder="ادخل المدينة أو المنطقة..."
-                    className="w-full bg-transparent px-3 outline-none"
+                    className="w-full bg-transparent px-3 outline-none text-foreground placeholder:text-muted-foreground"
                 />
             </div>
 

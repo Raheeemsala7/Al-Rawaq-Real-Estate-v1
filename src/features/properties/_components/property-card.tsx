@@ -10,7 +10,7 @@ import { Button } from '@/shared/components/ui/button'
 const PropertyCard = ({property} : {property :Property}) => {
     return (
         <Link key={property._id} href={`/properties/${property._id}`}>
-            <Card className="group overflow-hidden bg-white h-full hover:shadow-xl transition-all duration-300 border-1 border-[#7D6D5E26] rounded-2xl p-2">
+            <Card className="group overflow-hidden bg-card h-full hover:shadow-xl transition-all duration-300 border border-border rounded-2xl p-2">
                 <div className="relative">
                     <div className=" overflow-hidden rounded-t-2xl">
                         <Image
@@ -28,16 +28,16 @@ const PropertyCard = ({property} : {property :Property}) => {
 
                 <div className="px-1 lg:px-4 rtl:[direction:rtl]" >
                     {/* Property details icons */}
-                    <div className="flex items-center gap-3 mb-4 text-sm text-gray-600">
-                        <Badge className="flex items-center gap-2 py-2 px-3 rounded-full bg-[#FBF9F7] text-[#302D2B] text-sm">
+                    <div className="flex items-center gap-3 mb-4 text-sm text-muted-foreground">
+                        <Badge className="flex items-center gap-2 py-2 px-3 rounded-full bg-secondary text-secondary-foreground text-sm">
                             <Bed className="h-4 w-4" />
                             <span className="font-medium"></span>
                         </Badge>
-                        <Badge className="flex items-center gap-2 py-2 px-3 rounded-full bg-[#FBF9F7] text-[#302D2B] text-sm">
+                        <Badge className="flex items-center gap-2 py-2 px-3 rounded-full bg-secondary text-secondary-foreground text-sm">
                             <Bath className="h-4 w-4" />
                             <span className="font-medium">3</span>
                         </Badge>
-                        <Badge className="flex items-center gap-2 py-2 px-3 rounded-full bg-[#FBF9F7] text-[#302D2B] text-sm">
+                        <Badge className="flex items-center gap-2 py-2 px-3 rounded-full bg-secondary text-secondary-foreground text-sm">
                             <Square className="h-4 w-4" />
                             <span className="font-medium">{property.area}m²</span>
                         </Badge>
@@ -47,21 +47,21 @@ const PropertyCard = ({property} : {property :Property}) => {
                     <div className="flex  justify-between gap-2">
                         <div>
                             {/* Title */}
-                            <h3 className="font-bold text-xl text-[#302D2B] mb-2 text-balance">{property.title}</h3>
+                            <h3 className="font-bold text-xl text-foreground mb-2 text-balance">{property.title}</h3>
 
                             {/* Location */}
-                            <div className="flex items-center gap-2 text-[#8B8D98]">
+                            <div className="flex items-center gap-2 text-muted-foreground">
                                 <MapPin className="h-4 w-4" />
                                 <span className="text-sm">{property.location.city}</span>
                             </div>
                         </div>
                         {/* Price */}
                         <div className="flex flex-col justify-between items-center">
-                            <span className="text-lg font-bold text-[#302D2B] flex whitespace-nowrap">
+                            <span className="text-lg font-bold text-foreground flex whitespace-nowrap">
                                 {property.price.toLocaleString()} EGP
                             </span>
 
-                            <span className="text-sm text-[#8B8D98]">
+                            <span className="text-sm text-muted-foreground">
                                 {property.purpose}
                             </span>
                         </div>
@@ -77,7 +77,7 @@ const PropertyCard = ({property} : {property :Property}) => {
                         <Button
                             variant="ghost"
                             size="icon"
-                            className=" bg-white/90 hover:bg-white text-gray-600 rounded-full h-10 w-10"
+                            className="bg-secondary hover:bg-secondary/80 text-muted-foreground rounded-full h-10 w-10"
                         >
                             <Heart className="h-5 w-5" />
                         </Button>

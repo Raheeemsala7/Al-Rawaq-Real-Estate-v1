@@ -10,41 +10,23 @@ import {
     SidebarMenuItem,
 } from "@/shared/components/ui/sidebar"
 import { Building2, CheckCircle2, LayoutDashboard, MessageCircleWarning, Users } from "lucide-react"
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import Link from "next/link";
-
-// Menu items — hardcoded in Arabic since the dashboard is admin-only (Arabic locale)
-const items = [
-    {
-        title: "لوحة التحكم",
-        href: "/dashboard",
-        icon: LayoutDashboard,
-    },
-    {
-        title: "المستخدمين",
-        href: "/dashboard/users",
-        icon: Users,
-    },
-    {
-        title: "العقارات",
-        href: "/dashboard/properties",
-        icon: Building2,
-    },
-    {
-        title: "بلاغات",
-        href: `/dashboard/reports`,
-        icon: MessageCircleWarning,
-    },
-    {
-        title: "أرشيف",
-        href: `/dashboard/achieved`,
-        icon: CheckCircle2,
-    },
-];
 
 export async function AppSidebar() {
     const locale = await getLocale();
+    const t = await getTranslations("dashboard.sidebar");
     const isRTL = locale === "ar";
+
+    // Build items after translations are ready so labels are i18n-aware
+    const items = [
+        { title: t("dashboard"), href: "/dashboard", icon: LayoutDashboard },
+        { title: t("users"),     href: "/dashboard/users",      icon: Users },
+        { title: t("properties"),href: "/dashboard/properties", icon: Building2 },
+        { title: t("reports"),   href: "/dashboard/reports",    icon: MessageCircleWarning },
+        { title: t("archive"),   href: "/dashboard/achieved",   icon: CheckCircle2 },
+    ];
+
     return (
         <Sidebar
             collapsible="icon"
@@ -67,7 +49,7 @@ export async function AppSidebar() {
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {items.map((item) => (
-                                <SidebarMenuItem key={item.title}>
+                                <SidebarMenuItem key={item.href}>
                                     <Link href={item.href}>
                                         <SidebarMenuButton className="transition-colors duration-200">
                                             <item.icon className="shrink-0" />

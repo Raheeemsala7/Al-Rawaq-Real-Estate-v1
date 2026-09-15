@@ -12,7 +12,6 @@ import { cn } from './lib/utils'
 const CarouselProperties = async ({ propertiesAvailableText }: { propertiesAvailableText: string }) => {
     const locale = await getLocale()
     const properties = await getFeatureProperties()
-    console.log(properties)
     if (!properties.success) {
         return <p>حدث خطأ فني</p>
     }
@@ -39,10 +38,10 @@ const CarouselProperties = async ({ propertiesAvailableText }: { propertiesAvail
 
             <div className="flex items-center justify-between gap-6 rtl:[direction:rtl] mt-12">
                 <div className="flex gap-6">
-                    <CarouselPrevious className="static w-20 h-16 rounded-full border border-[#302D2B] rtl:rotate-180" />
-                    <CarouselNext className="static w-20 h-16 rounded-full border border-[#302D2B] rtl:rotate-180" />
+                    <CarouselPrevious className="static w-20 h-16 rounded-full border border-border hover:bg-muted transition-colors rtl:rotate-180" />
+                    <CarouselNext className="static w-20 h-16 rounded-full border border-border hover:bg-muted transition-colors rtl:rotate-180" />
                 </div>
-                <Link href={"/properties"} className={cn('p-4 rounded-full text-base border border-[#7D6D5E26] flex items-center gap-4', locale === 'en' ? 'flex-row-reverse' : 'flex-row')}>
+                <Link href={"/properties"} className={cn('p-4 rounded-full text-base border border-border flex items-center gap-4 hover:bg-muted transition-colors', locale === 'en' ? 'flex-row-reverse' : 'flex-row')}>
                     <span>{propertiesAvailableText}</span>
                     <ArrowLeftIcon className='size-6' />
                 </Link>

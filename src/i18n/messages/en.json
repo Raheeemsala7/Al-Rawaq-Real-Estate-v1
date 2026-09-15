@@ -160,5 +160,70 @@
                 "store": "Store"
             }
         }
+    },
+    "auth": {
+        "login": {
+            "title": "Welcome Back",
+            "subtitle": "Enter your account details to sign in",
+            "emailLabel": "Email Address",
+            "emailPlaceholder": "ahmed@example.com",
+            "passwordLabel": "Password",
+            "passwordPlaceholder": "••••••••",
+            "submit": "Sign In",
+            "loading": "Signing in...",
+            "orContinueWith": "Or continue with",
+            "google": "Google",
+            "noAccount": "Don't have an account?",
+            "signUp": "Sign Up",
+            "brandTagline": "Your trusted partner in all real estate matters.",
+            "brandQuote": "From buying and selling to renting and management — Al-Rawaq is with you every step of the way.",
+            "brandQuoteAuthor": "Al-Rawaq Real Estate Team"
+        }
+    },
+    "dashboard": {
+        "title": "Dashboard",
+        "subtitle": "Welcome to the main dashboard",
+        "sidebar": {
+            "dashboard": "Dashboard",
+            "users": "Users",
+            "properties": "Properties",
+            "reports": "Reports",
+            "archive": "Archive"
+        },
+        "users": {
+            "title": "User Management",
+            "subtitle": "View and manage all registered users",
+            "totalUsers": "Total Users",
+            "admins": "Admins",
+            "listTitle": "User List",
+            "search": "Search for a user...",
+            "columns": {
+                "name": "Name",
+                "email": "Email",
+                "role": "Role",
+                "verified": "Verified",
+                "actions": "Actions"
+            },
+            "roles": {
+                "admin": "Admin",
+                "buyer": "Buyer"
+            },
+            "verified": "Verified",
+            "notVerified": "Not Verified",
+            "delete": "Delete",
+            "deleteConfirm": "Are you sure you want to delete this user?",
+            "prev": "Previous",
+            "next": "Next",
+            "empty": "No users found",
+            "loading": "Loading data...",
+            "error": "Data not found",
+            "showing": "Showing",
+            "of": "of"
+        },
+        "properties": {
+            "title": "Property Management",
+            "subtitle": "View, edit and delete all listed properties",
+            "create": "Create New Property"
+        }
     }
 }
