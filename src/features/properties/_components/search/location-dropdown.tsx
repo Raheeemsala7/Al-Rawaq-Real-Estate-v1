@@ -18,9 +18,9 @@ export default function LocationDropdown({
         location.governorate;
 
     return (
-        <div className="absolute top-full mt-3 w-full overflow-hidden rounded-xl border bg-white shadow-xl z-50">
+        <div className="absolute top-full mt-3 w-full overflow-hidden rounded-xl border border-border bg-card shadow-xl z-50">
             {currentLocations.length > 0 && (
-                <div className="border-b bg-gray-50 p-3">
+                <div className="border-b border-border bg-muted/50 p-3">
                     <h3 className="text-sm font-semibold">
                         المواقع المختارة
                     </h3>
@@ -29,7 +29,7 @@ export default function LocationDropdown({
                         {currentLocations.map((location, index) => (
                             <span
                                 key={index}
-                                className="rounded-full bg-[#F2F0FF] px-3 py-1 text-sm text-[#766DBB]"
+                                className="rounded-full bg-primary/10 px-3 py-1 text-sm text-primary"
                             >
                                 {getLabel(location)}
                             </span>
@@ -39,7 +39,7 @@ export default function LocationDropdown({
             )}
 
             {locations.length === 0 ? (
-                <div className="p-6 text-center text-gray-500">
+                <div className="p-6 text-center text-muted-foreground">
                     لا توجد نتائج
                 </div>
             ) : (
@@ -49,19 +49,19 @@ export default function LocationDropdown({
                             key={index}
                             type="button"
                             onClick={() => onSelect(location)}
-                            className="flex w-full items-start justify-between border-b p-4 text-start transition hover:bg-gray-50"
+                            className="flex w-full items-start justify-between border-b border-border p-4 text-start transition hover:bg-muted"
                         >
                             <div>
-                                <p className="font-medium">
+                                <p className="font-medium text-foreground">
                                     {getLabel(location)}
                                 </p>
 
-                                <p className="text-sm text-gray-500">
+                                <p className="text-sm text-muted-foreground">
                                     {location.governorate}
                                 </p>
                             </div>
 
-                            <MapPin className="size-5 text-gray-400" />
+                            <MapPin className="size-5 text-muted-foreground/50" />
                         </button>
                     ))}
                 </div>

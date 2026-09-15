@@ -11,9 +11,16 @@ import ShapeIogo from "../../../../public/assets/icons/ShapeIogo";
 import { Link } from "@/i18n/navigation";
 import ReviewsSec from "@/shared/components/ReviewsSec";
 import { cn } from "@/shared/lib/utils";
+import ScrollRevealCard from "@/shared/components/scroll-reveal-card";
+import { getFeatureProperties } from "@/features/properties/apis/properties.api";
 
 export default async function Home() {
   const t = await getTranslations("hero")
+  const featuredPropertiesReq = await getFeatureProperties()
+  const firstFeaturedProperty = featuredPropertiesReq.success && featuredPropertiesReq.data.length > 0 
+    ? featuredPropertiesReq.data[0] 
+    : null;
+
   return (
     <main>
 
@@ -50,6 +57,11 @@ export default async function Home() {
             </Link>
           </Animated>
         </div>
+
+        {/* Wow Factor: Scroll-linked floating property card reveal */}
+        {firstFeaturedProperty && (
+          <ScrollRevealCard property={firstFeaturedProperty} />
+        )}
       </section>
 
       <FeatureProperties />

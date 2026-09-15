@@ -16,12 +16,12 @@ export default function LocationTag({
         location.governorate;
 
     return (
-        <div className="flex items-center gap-2 rounded-full border border-[#766DBB] px-3 py-1.5 text-sm text-[#766DBB]">
+        <div className="flex items-center gap-2 rounded-full border border-primary px-3 py-1.5 text-sm text-primary bg-primary/5">
             <span>{label}</span>
 
             <button
                 onClick={() => onRemove(location)}
-                className="rounded-full hover:bg-gray-100"
+                className="rounded-full hover:bg-muted"
             >
                 <X className="size-3.5" />
             </button>

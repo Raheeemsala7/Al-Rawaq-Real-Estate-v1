@@ -42,7 +42,7 @@ export default function LeafletLocationPicker({ value, onChange }: LocationPicke
             zoom={13}
             scrollWheelZoom={true}
             // style={{ height: "350px", width: "100%", borderRadius: "10px" }}
-                className="h-[350px] w-screen rounded-xl"
+                className="h-[350px] w-full rounded-xl"
 
         >
             <TileLayer

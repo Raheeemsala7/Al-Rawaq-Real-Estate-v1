@@ -224,6 +224,52 @@
             "title": "Property Management",
             "subtitle": "View, edit and delete all listed properties",
             "create": "Create New Property"
+        },
+        "reports": {
+            "title": "Reports",
+            "subtitle": "Manage user reports and inquiries",
+            "empty": "No reports found",
+            "columns": {
+                "id": "Report ID",
+                "user": "User",
+                "subject": "Subject",
+                "status": "Status",
+                "date": "Date",
+                "actions": "Actions"
+            }
+        }
+    },
+    "about": {
+        "title": "About Us",
+        "subtitle": "Learn about our journey and vision in real estate",
+        "mission_title": "Our Mission",
+        "mission_desc": "Providing the best real estate services with transparency and professionalism.",
+        "vision_title": "Our Vision",
+        "vision_desc": "To be the first choice and trusted destination for every property seeker.",
+        "values_title": "Our Values",
+        "values_desc": "Credibility, commitment, quality, and customer satisfaction."
+    },
+    "services_page": {
+        "title": "Our Services",
+        "subtitle": "We offer a comprehensive suite of real estate services to meet all your needs"
+    },
+    "contact": {
+        "title": "Contact Us",
+        "subtitle": "We are here to answer your questions and provide assistance",
+        "form": {
+            "name": "Full Name",
+            "namePlaceholder": "Enter your name...",
+            "email": "Email Address",
+            "emailPlaceholder": "Enter your email...",
+            "message": "Message",
+            "messagePlaceholder": "How can we help you?",
+            "submit": "Send Message",
+            "loading": "Sending..."
+        },
+        "info": {
+            "address": "Address",
+            "phone": "Phone",
+            "email": "Email"
         }
     }
 }
