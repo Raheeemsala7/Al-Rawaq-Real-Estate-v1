@@ -13,8 +13,7 @@ import { Building2, CheckCircle2, LayoutDashboard, MessageCircleWarning, Users }
 import { getLocale } from "next-intl/server";
 import Link from "next/link";
 
-
-// Menu items.
+// Menu items — hardcoded in Arabic since the dashboard is admin-only (Arabic locale)
 const items = [
     {
         title: "لوحة التحكم",
@@ -34,7 +33,7 @@ const items = [
     {
         title: "بلاغات",
         href: `/dashboard/reports`,
-        icon: MessageCircleWarning ,
+        icon: MessageCircleWarning,
     },
     {
         title: "أرشيف",
@@ -44,26 +43,34 @@ const items = [
 ];
 
 export async function AppSidebar() {
-    const locale = await getLocale(); 
+    const locale = await getLocale();
     const isRTL = locale === "ar";
     return (
-        <Sidebar collapsible="icon" style={{ direction: isRTL ? "rtl" : "ltr", right: isRTL ? "0" : "auto", left: isRTL ? "auto" : "0" }}>
-            <SidebarHeader className="pt-4 px-2 pb-2 ">
-                <SidebarMenuButton size={"lg"} className="data-[state=open]:text-sidebar-accent-foreground  hover:bg-transparent active:bg-transparent flex gap-3 ">
-                    <span className="truncate text-3xl font-semibold">
-                        الرِّواقْ
+        <Sidebar
+            collapsible="icon"
+            style={{ direction: isRTL ? "rtl" : "ltr", right: isRTL ? "0" : "auto", left: isRTL ? "auto" : "0" }}
+        >
+            {/* Sidebar header with brand accent color and bottom separator */}
+            <SidebarHeader className="border-b border-sidebar-border pt-4 px-2 pb-3">
+                <SidebarMenuButton
+                    size={"lg"}
+                    className="data-[state=open]:text-sidebar-accent-foreground hover:bg-transparent active:bg-transparent flex gap-3"
+                >
+                    <span className="truncate text-3xl font-semibold text-[#A89989]">
+                        الرِّواقْ
                     </span>
                 </SidebarMenuButton>
             </SidebarHeader>
-            <SidebarContent className="">
+
+            <SidebarContent>
                 <SidebarGroup>
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {items.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <Link href={item.href}>
-                                        <SidebarMenuButton >
-                                            <item.icon />
+                                        <SidebarMenuButton className="transition-colors duration-200">
+                                            <item.icon className="shrink-0" />
                                             <span>{item.title}</span>
                                         </SidebarMenuButton>
                                     </Link>
@@ -73,9 +80,10 @@ export async function AppSidebar() {
                     </SidebarGroupContent>
                 </SidebarGroup>
             </SidebarContent>
-            <SidebarFooter >
-                {/* <NavUser /> */}
+
+            <SidebarFooter>
+                {/* NavUser can be added here in the future */}
             </SidebarFooter>
         </Sidebar>
     )
-}
+}

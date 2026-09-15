@@ -19,11 +19,11 @@ const FeatureProperties = async () => {
                         </div>
 
                         <div className="flex flex-col gap-3 sm:flex-row">
-                            <h4 className="text-4xl text-[#302D2B]">
+                            <h4 className="text-4xl text-foreground">
                                 {t("title")}
                             </h4>
 
-                            <h3 className="text-5xl font-bold text-[#302D2B]">
+                            <h3 className="text-5xl font-bold text-foreground">
                                 {t("subtitle")}
                             </h3>
                         </div>
@@ -38,4 +38,4 @@ const FeatureProperties = async () => {
     );
 };
 
-export default FeatureProperties;
+export default FeatureProperties;

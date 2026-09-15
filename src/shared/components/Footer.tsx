@@ -12,21 +12,21 @@ const Footer = async () => {
     const contacts = t.raw("contacts") as string[];
 
     return (
-        <footer className="py-12">
+        <footer className="border-t border-border bg-muted/20 py-12">
             <div className="mx-auto max-w-7xl px-4">
                 <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
                     {/* Services */}
                     <div>
-                        <h6 className="mb-4 font-semibold text-[#8B8D98]">
+                        <h6 className="mb-4 font-semibold text-muted-foreground">
                             {t("servicesTitle")}
                         </h6>
 
-                        <ul className="space-y-3 font-medium text-[#302D2B]">
+                        <ul className="space-y-3 font-medium text-foreground">
                             {services.map((service) => (
                                 <li key={service}>
                                     <Link
                                         href="#"
-                                        className="transition-colors hover:text-gray-900"
+                                        className="transition-colors duration-200 hover:text-[#817263]"
                                     >
                                         {service}
                                     </Link>
@@ -37,16 +37,16 @@ const Footer = async () => {
 
                     {/* Important Links */}
                     <div>
-                        <h6 className="mb-4 font-semibold text-[#8B8D98]">
+                        <h6 className="mb-4 font-semibold text-muted-foreground">
                             {t("linksTitle")}
                         </h6>
 
-                        <ul className="space-y-3 font-medium text-[#302D2B]">
+                        <ul className="space-y-3 font-medium text-foreground">
                             {links.map((link) => (
                                 <li key={link}>
                                     <Link
                                         href="#"
-                                        className="transition-colors hover:text-gray-900"
+                                        className="transition-colors duration-200 hover:text-[#817263]"
                                     >
                                         {link}
                                     </Link>
@@ -57,47 +57,35 @@ const Footer = async () => {
 
                     {/* Contact */}
                     <div>
-                        <h6 className="mb-4 font-semibold text-[#8B8D98]">
+                        <h6 className="mb-4 font-semibold text-muted-foreground">
                             {t("contactTitle")}
                         </h6>
 
-                        <div className="space-y-3 font-medium text-[#302D2B]">
+                        <div className="space-y-3 font-medium text-foreground">
                             {contacts.map((contact) => (
                                 <p key={contact}>{contact}</p>
                             ))}
                         </div>
                     </div>
 
-                    {/* Back To Top */}
+                    {/* Back To Top — anchor for progressive enhancement, works without JS */}
                     <div className="flex items-start justify-end">
-                        <button
+                        <a
+                            href="#"
                             aria-label={t("backToTop")}
-                            className="flex h-14 w-14 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 transition-colors duration-300 hover:bg-gray-200"
+                            className="flex h-14 w-14 items-center justify-center rounded-full border border-border bg-background text-muted-foreground shadow-sm transition-all duration-300 hover:bg-muted hover:scale-110 hover:shadow-md active:scale-95"
                         >
                             <ArrowUp />
-                        </button>
+                        </a>
                     </div>
                 </div>
 
-                <div className="mt-12 flex flex-col items-center justify-between border-t border-gray-200 pt-8 md:flex-row-reverse">
-                    <div className="order-1 flex space-x-4">
-                        {/* Social Media */}
-                        {/* 
-            <Link href="#">
-              <Facebook />
-            </Link>
-
-            <Link href="#">
-              <Instagram />
-            </Link>
-
-            <Link href="#">
-              <Linkedin />
-            </Link>
-            */}
+                <div className="mt-12 flex flex-col items-center justify-between border-t border-border pt-8 md:flex-row-reverse">
+                    <div className="order-1 flex gap-4">
+                        {/* Social Media icons — placeholder for future implementation */}
                     </div>
 
-                    <p className="order-2 mt-4 text-sm font-medium text-gray-500 md:mt-0">
+                    <p className="order-2 mt-4 text-sm font-medium text-muted-foreground md:mt-0">
                         {t("copyright")}
                     </p>
                 </div>
@@ -106,4 +94,4 @@ const Footer = async () => {
     );
 };
 
-export default Footer;
+export default Footer;

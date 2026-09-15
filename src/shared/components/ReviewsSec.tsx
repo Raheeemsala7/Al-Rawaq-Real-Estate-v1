@@ -52,10 +52,10 @@ const ReviewsSec = () => {
 
                         <Link
                             href="/contact"
-                            className="flex w-fit items-center gap-3 rounded-full bg-gradient-to-b from-[#A89989] to-[#7D6D5E] px-8 py-4 text-white"
+                            className="flex w-fit items-center gap-3 rounded-full bg-gradient-to-b from-[#A89989] to-[#7D6D5E] px-8 py-4 text-white shadow-md transition-all duration-300 hover:brightness-90 hover:shadow-lg hover:scale-[1.02] active:scale-[0.99]"
                         >
                             <span>{t("button")}</span>
-                            <ArrowLeft className="size-4" />
+                            <ArrowLeft className="size-4 ltr:rotate-180 rtl:rotate-0" />
                         </Link>
                     </div>
 
@@ -79,8 +79,8 @@ const ReviewsSec = () => {
                             </CarouselContent>
 
                             <div className="absolute bottom-7 ltr:right-9 rtl:left-9 flex h-12 w-36 gap-4">
-                                <CarouselPrevious className="static h-8 w-12 rounded-full border border-[#302D2B] bg-transparent p-6" />
-                                <CarouselNext className="static h-8 w-12 rounded-full border border-[#302D2B] bg-transparent p-6" />
+                                <CarouselPrevious className="static h-8 w-12 rounded-full border border-foreground/30 bg-transparent p-6 hover:bg-foreground/10 hover:border-foreground/60 transition-colors duration-200" />
+                                <CarouselNext className="static h-8 w-12 rounded-full border border-foreground/30 bg-transparent p-6 hover:bg-foreground/10 hover:border-foreground/60 transition-colors duration-200" />
                             </div>
                         </Carousel>
                     </div>
@@ -98,18 +98,19 @@ const ReviewClientCard = ({
     review: ReviewItem;
 }) => {
     return (
-        <Card className="bg-[#FBF9F7] p-0 rtl:[direction:rtl]">
+        <Card className="bg-card p-0 rtl:[direction:rtl]">
             <CardContent className="p-4">
-                <span className="p-4">
+                {/* Quote icon with brand accent color */}
+                <span className="p-4 text-[#817263]">
                     <Quote />
                 </span>
 
                 <div className="space-y-6">
-                    <p className="text-[#8B8D98]">
+                    <p className="text-muted-foreground">
                         {review.description}
                     </p>
 
-                    <div className="border-t border-[#8B8D9826]" />
+                    <div className="border-t border-border" />
 
                     <div className="flex items-center gap-2">
                         <Avatar className="size-14">
@@ -129,7 +130,7 @@ const ReviewClientCard = ({
                         <div className="space-y-1">
                             <h6>{review.name}</h6>
 
-                            <p className="text-sm text-[#8B8D98]">
+                            <p className="text-sm text-muted-foreground">
                                 {review.jobTitle}
                             </p>
                         </div>
@@ -138,4 +139,4 @@ const ReviewClientCard = ({
             </CardContent>
         </Card>
     );
-};
+};

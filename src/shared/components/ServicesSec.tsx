@@ -15,7 +15,8 @@ const ServicesSec = () => {
 
     return (
         <>
-            <section className="bg-[#FBF9F7] py-20">
+            {/* Services intro — warm muted background, dark-mode safe */}
+            <section className="bg-muted/50 py-20">
                 <div className="mx-auto max-w-7xl px-4">
                     <div className="flex items-center justify-between gap-6">
                         <motion.div className="hidden flex-1 md:block" {...fadeInUp}>
@@ -75,16 +76,16 @@ const ServicesSec = () => {
                                     </span>
                                 </h4>
 
-                                <p className="text-lg font-medium">
+                                <p className="text-lg font-medium text-muted-foreground">
                                     {t("description")}
                                 </p>
 
                                 <Link
                                     href="/contact"
-                                    className="flex w-fit items-center gap-3 rounded-full bg-gradient-to-b from-[#A89989] to-[#7D6D5E] px-8 py-4 text-white"
+                                    className="flex w-fit items-center gap-3 rounded-full bg-gradient-to-b from-[#A89989] to-[#7D6D5E] px-8 py-4 text-white shadow-md transition-all duration-300 hover:brightness-90 hover:shadow-lg hover:scale-[1.02] active:scale-[0.99]"
                                 >
                                     <span>{t("consultants")}</span>
-                                    <ArrowLeft className="size-4" />
+                                    <ArrowLeft className="size-4 ltr:rotate-180 rtl:rotate-0" />
                                 </Link>
                             </div>
                         </motion.div>
@@ -92,6 +93,7 @@ const ServicesSec = () => {
                 </div>
             </section>
 
+            {/* Services CTA — full-bleed background image */}
             <section className="bg-services relative h-[80vh] py-20">
                 <div className="absolute inset-0 size-full bg-black/30" />
 
@@ -108,19 +110,21 @@ const ServicesSec = () => {
 
                             <Link
                                 href="/contact"
-                                className="flex w-fit items-center gap-3 rounded-full bg-gradient-to-b from-[#A89989] to-[#7D6D5E] px-8 py-4 text-white"
+                                className="flex w-fit items-center gap-3 rounded-full bg-gradient-to-b from-[#A89989] to-[#7D6D5E] px-8 py-4 text-white shadow-md transition-all duration-300 hover:brightness-90 hover:shadow-lg hover:scale-[1.02] active:scale-[0.99]"
                             >
                                 <span>{t("consultants")}</span>
-                                <ArrowLeft className="size-4" />
+                                <ArrowLeft className="size-4 ltr:rotate-180 rtl:rotate-0" />
                             </Link>
                         </div>
 
-                        <div className="h-fit space-y-6 self-end rounded-2xl bg-[#41414126] px-6 py-4 backdrop-blur-2xl">
+                        {/* Glassmorphism stats card */}
+                        <div className="h-fit space-y-6 self-end rounded-2xl border border-white/20 bg-white/10 px-6 py-4 backdrop-blur-2xl shadow-md">
                             <span className="text-sm text-white">
                                 {t("moreThan")}
                             </span>
 
-                            <div className="space-x-2">
+                            {/* flex gap-2 replaces the physical space-x-2 */}
+                            <div className="flex items-baseline gap-2">
                                 <span className="text-3xl font-semibold text-white">
                                     500
                                 </span>
@@ -130,7 +134,7 @@ const ServicesSec = () => {
                                 </span>
                             </div>
 
-                            <div className="border-t border-white" />
+                            <div className="border-t border-white/40" />
 
                             <p className="max-w-64 text-base text-white">
                                 {t("consultationDescription")}

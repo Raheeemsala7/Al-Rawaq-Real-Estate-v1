@@ -18,7 +18,8 @@ export default async function Home() {
     <main>
 
       <section className="relative min-h-[calc(100vh-65px)] flex items-center">
-        <div className="absolute inset-0 ">
+        {/* Hero background image */}
+        <div className="absolute inset-0">
           <Image
             src={"/landing.png"}
             alt="Real Estate Hero"
@@ -27,43 +28,56 @@ export default async function Home() {
             priority
           />
         </div>
+        {/* Rich gradient overlay for text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/10" />
 
         <div className="relative w-full max-w-7xl mx-auto px-4">
-          <Animated className="max-w-2xl " {...fadeInUp}>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 ltr:leading-16 rtl:leading-20 text-balance">{t("title")}</h1>
-            <Link href="/properties" className={cn(buttonVariants() ,`bg-gradient-to-b from-[#A89989] to-[#7D6D5E] 
-                            text-white py-3 px-8 rounded-lg 
-                              transition-all duration-300 ease-in-out hover:brightness-90`)}>
+          <Animated className="max-w-2xl" {...fadeInUp}>
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 ltr:leading-16 rtl:leading-20 text-balance drop-shadow-lg">
+              {t("title")}
+            </h1>
+            <Link
+              href="/properties"
+              className={cn(
+                buttonVariants(),
+                "bg-gradient-to-b from-[#A89989] to-[#7D6D5E] text-white py-3 px-8 rounded-lg shadow-lg transition-all duration-300 ease-in-out hover:brightness-90 hover:shadow-xl hover:scale-[1.03] active:scale-[0.98]"
+              )}
+            >
               {t("cta")}
               <span>
-                <ArrowLeft className="w-4 h-4 ltr:rotate-180" />
+                <ArrowLeft className="w-4 h-4 ltr:rotate-180 rtl:rotate-0" />
               </span>
             </Link>
           </Animated>
         </div>
       </section>
+
       <FeatureProperties />
       <ServicesSec />
       <ReviewsSec />
-      <section className="relative h-[60vh] bg-contact py-20">
+
+      {/* Contact CTA section */}
+      <section className="relative h-[60vh] bg-contact py-20" id="contact">
+        <div className="absolute inset-0 size-full bg-black/40" />
         <div className="relative mx-auto flex h-full max-w-7xl items-center justify-center px-4">
           <div className="flex flex-col items-center justify-center gap-5">
             <ShapeIogo className="stroke-white" />
 
-            <h6 className="max-w-xl text-center text-5xl leading-14 text-white">
+            <h6 className="max-w-xl text-center text-5xl leading-14 text-white drop-shadow-md">
               {t("contactSection.title")}
             </h6>
 
             <Link
               href="/contact"
-              className="flex w-fit items-center gap-3 rounded-full bg-gradient-to-b from-[#A89989] to-[#7D6D5E] px-8 py-4 text-white"
+              className="flex w-fit items-center gap-3 rounded-full bg-gradient-to-b from-[#A89989] to-[#7D6D5E] px-8 py-4 text-white shadow-lg transition-all duration-300 hover:brightness-90 hover:shadow-xl hover:scale-[1.03] active:scale-[0.98]"
             >
               <span>{t("contactSection.button")}</span>
-              <ArrowLeft className="size-4" />
+              <ArrowLeft className="size-4 ltr:rotate-180 rtl:rotate-0" />
             </Link>
           </div>
         </div>
       </section>
+
       <ConsultationSec />
     </main>
   );
